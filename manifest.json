@@ -9,8 +9,6 @@
     //"*://reader.youdao.com/",
     "webRequest",
     "*://cang.baidu.com/"
-
-    
   ],
   "icons": {
     "48" : "sample-48.png",

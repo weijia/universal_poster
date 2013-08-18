@@ -104,9 +104,9 @@ function getPostUrl(username, password, tags, postingUrl) {
 //console.log("Hello world");
 chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
     if(response.isPostNeeded){
-        console.log(response.info);
+        console.log("need to post", response.info);
         var url = getPostUrl(response.username, response.password,
-                                encodeURI(info.requestBody.formData.tn.join()), postingUrl);
+                                encodeURI(response.info.requestBody.formData.tn.join()), postingUrl);
         console.log(url);
         postToBae(url, function (data) {
             console.log("universal poster: " + data);
