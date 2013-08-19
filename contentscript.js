@@ -78,8 +78,8 @@ function postToBae(url, callback) {
   xhr.onreadystatechange = function(data) {
     if (xhr.readyState == 4) {
       if (xhr.status == 200) {
-        var data = JSON.parse(xhr.responseText);
-        callback(data);
+        //var data = JSON.parse(xhr.responseText);
+        callback(xhr.responseText);
       } else {
         callback(null);
       }
