@@ -92,12 +92,13 @@ function postToBae(url, callback) {
 };
 
 
-function getPostUrl(username, password, tags, postingUrl) {
+function getPostUrl(username, password, tags, postingUrl, description) {
 
     var url = 'https://mycampus.duapp.com/objsys/append_tags/?username=' + username;
     url += '&password=' + password;
     url += "&tags=" + tags;
     url += "&selected_url=" + encodeURI(postingUrl);
+    url += "&description=" + encodeURI(description);
     return url;
 }
 
@@ -106,7 +107,8 @@ chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
     if(response.isPostNeeded){
         console.log("need to post", response.info);
         var url = getPostUrl(response.username, response.password,
-                                encodeURI(response.info.requestBody.formData.tn.join()), response.info.requestBody.formData.iu);
+                                encodeURI(response.info.requestBody.formData.tn.join()), response.info.requestBody.formData.iu,
+                                response.info.requestBody.formData.it);
         console.log(url);
         postToBae(url, function (data) {
             console.log("universal poster: " + data);
