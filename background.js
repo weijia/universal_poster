@@ -67,11 +67,12 @@ chrome.runtime.onMessage.addListener(
 
         if(sender.tab.url in gStaredItemList){
             // TODO: remove the info after a timeout
-            sendResponse({farewell: "goodbye", info: gStaredItemList[sender.tab.url], isPostNeeded: true,
+            sendResponse({info: gStaredItemList[sender.tab.url], isPostNeeded: true,
                 username: savedUsername, password: savedPassword});
+			setInterval(function(){delete gStaredItemList[sender.tab.url];},10000);
         }
         else{
-            sendResponse({farewell: "goodbye", info: gStaredItemList[sender.tab.url], isPostNeeded: false,
+            sendResponse({isPostNeeded: false,
                 username: savedUsername, password: savedPassword});
         }
     }
