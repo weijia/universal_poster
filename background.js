@@ -47,8 +47,8 @@ chrome.webRequest.onBeforeRequest.addListener(
             {
                 var expectedUrlPos = info.url.indexOf(matchUrl);
                 if(-1 != expectedUrlPos){
-                    var postInfo = snifferEngineDict[key].onRequest(info);
-                    submitPackage[snifferEngineDict[key].name] = postInfo;
+                    var postInfo = snifferEngineDict[matchUrl].onRequest(info);
+                    submitPackage[snifferEngineDict[matchUrl].name] = postInfo;
                 }
             }
 
