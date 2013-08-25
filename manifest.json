@@ -17,11 +17,11 @@
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "js" : ["contentscript.js"]
+      "js" : ["contentscript.js", "jquery-1.9.1.min.js"]
     }
   ],
   "options_page": "options.html",
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["poster.js", "cang_sniffer.js", "bae_backend.js", "background.js"]
   }
 }
