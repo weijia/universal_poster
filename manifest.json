@@ -8,7 +8,8 @@
     "https://mycampus.duapp.com/*",
     //"*://reader.youdao.com/",
     "webRequest",
-    "*://cang.baidu.com/"
+    "*://cang.baidu.com/",
+    "notifications"
   ],
   "icons": {
     "48" : "sample-48.png",

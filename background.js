@@ -9,6 +9,29 @@ var startPostInfoProcess = function(postInfo) {
     
     var postUrl = baeBackend.getPostUrl(savedUsername, savedPassword, postInfo.tags, postInfo.postingUrl, postInfo.description);
     console.log(postUrl);
+    
+    
+    // Note: There's no need to call webkitNotifications.checkPermission().
+    // Extensions that declare the notifications permission are always
+    // allowed create notifications.
+
+    // Create a simple text notification:
+    var notification = webkitNotifications.createNotification(
+      '',
+      'Posting!',  // notification title
+      postUrl  // notification body text
+    );
+    /*
+    // Or create an HTML notification:
+    var notification = webkitNotifications.createHTMLNotification(
+      'notification.html'  // html url - can be relative
+    );*/
+
+    // Then show the notification.
+    notification.show();
+    setTimeout(function(){
+      notification.cancel();
+    }, 3000);
     postUrlWithCallback(postUrl, function(data){console.log(data);});
 }
 
