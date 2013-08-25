@@ -9,7 +9,7 @@ var startPostInfoProcess = function(postInfo) {
     
     var postUrl = baeBackend.getPostUrl(savedUsername, savedPassword, postInfo.tags, postInfo.postingUrl, postInfo.description);
     console.log(postUrl);
-    //postUrlWithCallback(postUrl);
+    postUrlWithCallback(postUrl, function(data){console.log(data);});
 }
 
 var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer};
