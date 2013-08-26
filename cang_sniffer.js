@@ -1,4 +1,4 @@
-var cangSniffer = function(){
+var cangSniffer = {
     name: "cang.baidu.com",
     onRequest: function(info) {
 
