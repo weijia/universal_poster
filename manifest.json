@@ -10,6 +10,7 @@
     "webRequest",
     "*://cang.baidu.com/",
     "*://www.instapaper.com/",
+    "https://github.com/",
     "notifications"
   ],
   "icons": {
