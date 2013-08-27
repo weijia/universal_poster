@@ -35,7 +35,9 @@ var startPostInfoProcess = function(postInfo) {
     postUrlWithCallback(postUrl, function(data){console.log(data);});
 }
 
-var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer};
+var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
+                            "https://www.instapaper.com/bookmarklet/": instapaperSniffer
+};
 
 chrome.webRequest.onBeforeRequest.addListener(
     function(info) {
