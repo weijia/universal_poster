@@ -39,6 +39,8 @@ var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
                             "https://www.instapaper.com/bookmarklet/": instapaperSniffer
 };
 
+var snifferEngineList = [githubSniffer];
+
 chrome.webRequest.onBeforeRequest.addListener(
     function(info) {
         var submitPackage = {};
@@ -54,6 +56,12 @@ chrome.webRequest.onBeforeRequest.addListener(
                 }
             }
 
+        }
+        for(var index=0;index<snifferEngineList.length;index++){
+            if(snifferEngineList[index].matchUrl(info)) {
+                var postInfo = snifferEngineList[index].onRequest(info);
+                startPostInfoProcess(postInfo);
+            }
         }
 
     },

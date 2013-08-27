@@ -1,6 +1,6 @@
 {
   "name": "Universal poster",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "manifest_version": 2,
   "description": "Post every stared thing to BAE",
   "permissions": [
@@ -10,7 +10,7 @@
     "webRequest",
     "*://cang.baidu.com/",
     "*://www.instapaper.com/",
-    "https://github.com/",
+    "https://github.com/*/star",
     "notifications"
   ],
   "icons": {
@@ -25,6 +25,6 @@
   ],
   "options_page": "options.html",
   "background": {
-    "scripts": ["poster.js", "cang_sniffer.js", "instapaper_sniffer.js", "bae_backend.js", "background.js"]
+    "scripts": ["poster.js", "cang_sniffer.js", "instapaper_sniffer.js", "github_sniffer.js", "bae_backend.js", "background.js"]
   }
 }
