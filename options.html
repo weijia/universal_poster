@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Options</title>
+    <script src="/jquery-1.9.1.min.js"></script>
 </head>
 <body>
-<label for="username">Username: </label><input id="username" type="text"/>
-<label for="password">Password: </label><input id="password" type="password"/>
+    <div id="instapaper-info" class="input-fields">
+    <p>Instapaper account infomation</p>
+    <label for="instapaper-username">Username: </label><input id="instapaper-username" class="username" type="text"/>
+    <label for="instapaper-password">Password: </label><input id="instapaper-password" class="password" type="password"/>
 
-<br>
-<div id="status"></div>
-<button id="save">Save</button>
+    <br>
+    <div class="status"></div>
+    <button id="instapaper-save" class="save">Save</button>
+    </div>
+    <div id="duapp-info" class="input-fields">
+    <p>Duapp account information</p>
+    <label for="duapp-username">Username: </label><input id="duapp-username" class="username" type="text"/>
+    <label for="duapp-password">Password: </label><input id="duapp-password" class="password" type="password"/>
+
+    <br>
+    <div class="status"></div>
+    <button id="duapp-save" class="save">Save</button>
+    </div>
+
+
 </body>
 <script src="options.js"></script>
 </html>
