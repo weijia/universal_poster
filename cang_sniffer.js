@@ -4,6 +4,7 @@ var cangSniffer = {
 
         return {tags: info.requestBody.formData.tn.join(), 
                 postingUrl: info.requestBody.formData.iu,
-                description: info.requestBody.formData.it}
+                description: info.requestBody.formData.it,
+                capturer: this}
     }
 }

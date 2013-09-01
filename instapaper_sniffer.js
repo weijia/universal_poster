@@ -4,6 +4,7 @@ var instapaperSniffer = {
 
         return {tags: "read_it_later", 
                 postingUrl: info.requestBody.formData.u,
-                description: info.requestBody.formData.t}
+                description: info.requestBody.formData.t,
+                capturer: this}
     }
 }

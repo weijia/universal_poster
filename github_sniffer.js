@@ -5,7 +5,8 @@ var githubSniffer = {
         starUrl
         return {tags: "star", 
                 postingUrl: info.url.substring(0, info.url.length - "/star".length),
-                description: info.url.substring(0, info.url.length - "/star".length)}
+                description: info.url.substring(0, info.url.length - "/star".length),
+                capturer: this}
     },
     matchUrl: function(info) {
         if((info.url.indexOf("https://github.com/") == 0) &&

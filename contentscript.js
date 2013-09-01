@@ -13,7 +13,7 @@ function handleInitForNetEaseScript(event){
         
 
         //console.log("Hello world");
-        var msg = {tags: "buy", postingUrl: item.attr("href"), description: item.text()};
+        var msg = {tags: "buy", postingUrl: item.attr("href"), description: item.text(), capturer: {name: "netease_reader"}};
         chrome.runtime.sendMessage(msg, function(response) {});
         console.log("send msg done", msg);
     }

@@ -4,11 +4,18 @@
 var startPostInfoProcess = function(postInfo) {
     console.log(postInfo);
         
-    savedUsername = localStorage["username"];
-    savedPassword = localStorage["password"];
+    //savedUsername = localStorage["username"];
+    //savedPassword = localStorage["password"];
     
-    var postUrl = baeBackend.getPostUrl(savedUsername, savedPassword, postInfo.tags, postInfo.postingUrl, postInfo.description);
-    console.log(postUrl);
+    var postUrl = baeBackend.getPostUrl(localStorage["duapp-username"], localStorage["duapp-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
+
+    console.log("capturer:", postInfo.capturer.name);
+    
+    var instapaperPostUrl = "";
+    if(postInfo.capturer.name != "instapaper.com"){
+        var instapaperPostUrl = instapaperBackend.getPostUrl(localStorage["instapaper-username"], localStorage["instapaper-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
+    }
+    
     
     
     // Note: There's no need to call webkitNotifications.checkPermission().
@@ -19,7 +26,7 @@ var startPostInfoProcess = function(postInfo) {
     var notification = webkitNotifications.createNotification(
       '',
       'Posting!',  // notification title
-      postUrl  // notification body text
+      postInfo.postingUrl  // notification body text
     );
     /*
     // Or create an HTML notification:
@@ -32,7 +39,8 @@ var startPostInfoProcess = function(postInfo) {
     setTimeout(function(){
       notification.cancel();
     }, 3000);
-    postUrlWithCallback(postUrl, function(data){console.log(data);});
+    postUrlWithCallback(postUrl, function(data){console.log("BAE post result:", data);});
+    if(instapaperPostUrl != "") postUrlWithCallback(instapaperPostUrl, function(data){console.log("instapaper post result:", data);});
 }
 
 var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
