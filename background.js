@@ -7,16 +7,25 @@ var startPostInfoProcess = function(postInfo) {
     //savedUsername = localStorage["username"];
     //savedPassword = localStorage["password"];
     
-    var postUrl = baeBackend.getPostUrl(localStorage["duapp-username"], localStorage["duapp-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
-
-    console.log("capturer:", postInfo.capturer.name);
-    
-    var instapaperPostUrl = "";
-    if(postInfo.capturer.name != "instapaper.com"){
-        var instapaperPostUrl = instapaperBackend.getPostUrl(localStorage["instapaper-username"], localStorage["instapaper-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
+    var postUrl = "";
+    if((localStorage["duapp-username"])&&(localStorage["duapp-password"])){
+        postUrl = baeBackend.getPostUrl(localStorage["duapp-username"], localStorage["duapp-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
+    }
+    else{
+        console.log("You must first set your username for BAE backend in option");
     }
     
     
+    console.log("capturer:", postInfo.capturer.name);
+    
+    var instapaperPostUrl = "";
+    if((postInfo.capturer.name != "instapaper.com")){
+        if((localStorage["instapaper-username"])&&(localStorage["instapaper-password"]))
+            instapaperPostUrl = instapaperBackend.getPostUrl(localStorage["instapaper-username"], localStorage["instapaper-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
+        else{
+            console.log("You must first set your instapaper username in option");
+        }
+    }
     
     // Note: There's no need to call webkitNotifications.checkPermission().
     // Extensions that declare the notifications permission are always
@@ -39,7 +48,8 @@ var startPostInfoProcess = function(postInfo) {
     setTimeout(function(){
       notification.cancel();
     }, 3000);
-    postUrlWithCallback(postUrl, function(data){console.log("BAE post result:", data);});
+    
+    if(postUrl != "") postUrlWithCallback(postUrl, function(data){console.log("BAE post result:", data);});
     if(instapaperPostUrl != "") postUrlWithCallback(instapaperPostUrl, function(data){console.log("instapaper post result:", data);});
 }
 
