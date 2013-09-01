@@ -57,7 +57,7 @@ var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
                             "https://www.instapaper.com/bookmarklet/": instapaperSniffer
 };
 
-var snifferEngineList = [githubSniffer];
+var snifferEngineList = [githubSniffer, stackoverflowSniffer];
 
 chrome.webRequest.onBeforeRequest.addListener(
     function(info) {
