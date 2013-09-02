@@ -11,7 +11,8 @@
     "*://cang.baidu.com/",
     "*://www.instapaper.com/",
     "https://github.com/*/star",
-    "notifications"
+    "notifications",
+    "storage"
   ],
   "icons": {
     "48" : "sample-48.png",
