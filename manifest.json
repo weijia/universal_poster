@@ -1,6 +1,6 @@
 {
   "name": "Universal poster",
-  "version": "2.4.0",
+  "version": "0.2.0",
   "manifest_version": 2,
   "description": "Post every stared thing to BAE and instapaper",
   "permissions": [
@@ -11,6 +11,7 @@
     "*://cang.baidu.com/",
     "*://www.instapaper.com/",
     "https://github.com/*/star",
+    "http://stackoverflow.com/posts/*",
     "notifications"
   ],
   "icons": {
