@@ -3,28 +3,35 @@
 
 var startPostInfoProcess = function(postInfo) {
     console.log(postInfo);
-        
-    //savedUsername = localStorage["username"];
-    //savedPassword = localStorage["password"];
     
     var postUrl = "";
-    if((localStorage["duapp-username"])&&(localStorage["duapp-password"])){
-        postUrl = baeBackend.getPostUrl(localStorage["duapp-username"], localStorage["duapp-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
-    }
-    else{
-        console.log("You must first set your username for BAE backend in option");
-    }
-    
+    chrome.storage.sync.get(["duapp-username", "duapp-password"], function(items){
+        //console.log(items);
+        //console.log(items["duapp-username"], items["duapp-password"]);
+        if(items["duapp-username"] && items["duapp-password"]){
+            postUrl = baeBackend.getPostUrl(items["duapp-username"], items["duapp-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
+            postUrlWithCallback(postUrl, function(data){console.log("BAE post result:", data);});
+        }
+        else{
+            console.log("You must first set your username for BAE backend in option");
+        }
+    });
     
     console.log("capturer:", postInfo.capturer.name);
     
     var instapaperPostUrl = "";
     if((postInfo.capturer.name != "instapaper.com")){
-        if((localStorage["instapaper-username"])&&(localStorage["instapaper-password"]))
-            instapaperPostUrl = instapaperBackend.getPostUrl(localStorage["instapaper-username"], localStorage["instapaper-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
-        else{
-            console.log("You must first set your instapaper username in option");
-        }
+        chrome.storage.sync.get(["instapaper-username", "instapaper-password"], function(items){
+            //console.log(items);
+            //console.log(items["instapaper-username"], items["instapaper-password"]);
+            if(items["instapaper-username"] && items["instapaper-password"]){
+                instapaperPostUrl = instapaperBackend.getPostUrl(items["instapaper-username"], items["instapaper-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
+                if(instapaperPostUrl != "") postUrlWithCallback(instapaperPostUrl, function(data){console.log("instapaper post result:", data);});
+            }
+            else{
+                console.log("You must first set your instapaper username in option");
+            }
+        });
     }
     
     // Note: There's no need to call webkitNotifications.checkPermission().
@@ -49,8 +56,6 @@ var startPostInfoProcess = function(postInfo) {
       notification.cancel();
     }, 3000);
     
-    if(postUrl != "") postUrlWithCallback(postUrl, function(data){console.log("BAE post result:", data);});
-    if(instapaperPostUrl != "") postUrlWithCallback(instapaperPostUrl, function(data){console.log("instapaper post result:", data);});
 }
 
 var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,

@@ -1,6 +1,7 @@
 
 
 function postUrlWithCallback(url, callback) {
+  console.log("Real post: ", url);
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function(data) {
     if (xhr.readyState == 4) {
