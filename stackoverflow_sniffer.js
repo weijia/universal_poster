@@ -4,8 +4,8 @@ var stackoverflowSniffer = {
         var starUrl = info.url;
         starUrl
         return {tags: "star", 
-                postingUrl: info.url.substring(0, info.url.length - "/vote/5".length),
-                description: info.url.substring(0, info.url.length - "/vote/5".length),
+                postingUrl: info.url.substring(0, info.url.length - "/vote/5".length).replace("\/posts\/","/questions/"),
+                description: info.url.substring(0, info.url.length - "/vote/5".length).replace("\/posts\/","/questions/"),
                 capturer: this}
     },
     matchUrl: function(info) {
