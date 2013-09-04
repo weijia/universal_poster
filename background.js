@@ -59,7 +59,8 @@ var startPostInfoProcess = function(postInfo) {
 }
 
 var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
-                            "https://www.instapaper.com/bookmarklet/": instapaperSniffer
+                            "https://www.instapaper.com/bookmarklet/": instapaperSniffer,
+                            "http://www.instapaper.com/bookmarklet/": instapaperSniffer
 };
 
 var snifferEngineList = [githubSniffer, stackoverflowSniffer];
