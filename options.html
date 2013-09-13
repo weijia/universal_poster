@@ -6,22 +6,32 @@
 </head>
 <body>
     <div id="instapaper-info" class="input-fields">
-    <p>Instapaper account infomation</p>
-    <label for="instapaper-username">Username: </label><input id="instapaper-username" class="username" type="text"/>
-    <label for="instapaper-password">Password: </label><input id="instapaper-password" class="password" type="password"/>
+        <p><h1>Instapaper account infomation.</h1></p>
+        <p>Normally, you may not need to change URL for this site</p>
+        <label for="instapaper-url">Post URL: </label>
+            <input id="instapaper-url" class="url" type="text" size="100" disabled="true"
+                   value="https://www.instapaper.com/api/add?username={username}&password={password}&url={url}&title={description}"/>
+            <br/>
+        <label for="instapaper-username">Username: </label><input id="instapaper-username" class="username" type="text"/>
+        <label for="instapaper-password">Password: </label><input id="instapaper-password" class="password" type="password"/>
 
-    <br>
-    <div class="status"></div>
-    <button id="instapaper-save" class="save">Save</button>
+        <br>
+        <div class="status"></div>
+        <button id="instapaper-save" class="save">Save</button>
     </div>
     <div id="duapp-info" class="input-fields">
-    <p>Duapp account information</p>
-    <label for="duapp-username">Username: </label><input id="duapp-username" class="username" type="text"/>
-    <label for="duapp-password">Password: </label><input id="duapp-password" class="password" type="password"/>
+        <p><h1>Duapp account information</h1></p>
+        <p>Normally, you may not need to change URL for this site</p>
+        <label for="duapp-url">Post URL: </label>
+            <input id="duapp-url" class="url" type="text" size="100" disabled="true"
+                   value="https://mycampus.duapp.com/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}"/>
+            <br/>
+        <label for="duapp-username">Username: </label><input id="duapp-username" class="username" type="text"/>
+        <label for="duapp-password">Password: </label><input id="duapp-password" class="password" type="password"/>
 
-    <br>
-    <div class="status"></div>
-    <button id="duapp-save" class="save">Save</button>
+        <br>
+        <div class="status"></div>
+        <button id="duapp-save" class="save">Save</button>
     </div>
 
 

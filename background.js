@@ -5,24 +5,38 @@ var siteConfigurations = null;
 chrome.storage.sync.get(["siteConfigurations"], function(items){
     siteConfigurations = items["siteConfigurations"];
     if(!siteConfigurations){
-        console.log("You must first set sites you want to post to.");
+        console.log("You must first set sites you want to post to. Please open option page for this extension.");
         // Create a simple text notification:
         var notification = webkitNotifications.createNotification(
             '',
-            'Warning!',  // notification title
-            'You must first set sites you want to post to.'  // notification body text
+            'Universal poster warning!',  // notification title
+            'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
         );
         notification.show();
     }
     else{
-        localStorage["siteConfigurations"] = siteConfigurations;
+        localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
     }
 });
 
 
 var startPostInfoProcess = function(postInfo) {
     console.log(postInfo);
-    
+    var siteConfigurations = JSON.parse(localStorage["siteConfigurations"]);
+    for(var index=0; index<siteConfigurations.length; index++){
+        var username = siteConfigurations[index].username;
+        var password = siteConfigurations[index].password;
+        var postUrl = siteConfigurations[index].siteUrl.replace("{username}", username);
+        postUrl = postUrl.replace("{password}", password).replace("{url}", postInfo.postingUrl);
+        postUrl = postUrl.replace("{tags}", postInfo.tags).replace("{description}", postInfo.description);
+        console.log(postUrl);
+        if((postInfo.capturer.name == "instapaper.com") &&
+            (-1!=siteConfigurations[index].siteUrl.indexOf("instapaper.com")))
+                continue;//Captured from instapaper, so it is already posted to instapaper. Ignore this post
+        postUrlWithCallback(postUrl, function(data){console.log("post result:", data);});
+    }
+    /*
+    JSON.parse(localStorage["siteConfigurations"])
     var postUrl = "";
     chrome.storage.sync.get(["duapp-username", "duapp-password"], function(items){
         //console.log(items);
@@ -51,7 +65,7 @@ var startPostInfoProcess = function(postInfo) {
                 console.log("You must first set your instapaper username in option");
             }
         });
-    }
+    }*/
     
     // Note: There's no need to call webkitNotifications.checkPermission().
     // Extensions that declare the notifications permission are always
@@ -60,7 +74,7 @@ var startPostInfoProcess = function(postInfo) {
     // Create a simple text notification:
     var notification = webkitNotifications.createNotification(
       '',
-      'Posting!',  // notification title
+      'Universal poster: Posting!',  // notification title
       postInfo.postingUrl  // notification body text
     );
     /*
