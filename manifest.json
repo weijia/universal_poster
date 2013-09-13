@@ -1,6 +1,6 @@
 {
   "name": "Universal poster",
-  "version": "2.8.2",
+  "version": "2.8.3",
   "manifest_version": 2,
   "description": "Post every stared thing to instapaper and BAE backend",
   "permissions": [

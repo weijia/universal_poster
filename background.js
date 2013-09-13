@@ -1,4 +1,23 @@
-
+///////////////////////
+// Initialize username and password from chrome cloud stoage
+///////////////////////
+var siteConfigurations = null;
+chrome.storage.sync.get(["siteConfigurations"], function(items){
+    siteConfigurations = items["siteConfigurations"];
+    if(!siteConfigurations){
+        console.log("You must first set sites you want to post to.");
+        // Create a simple text notification:
+        var notification = webkitNotifications.createNotification(
+            '',
+            'Warning!',  // notification title
+            'You must first set sites you want to post to.'  // notification body text
+        );
+        notification.show();
+    }
+    else{
+        localStorage["siteConfigurations"] = siteConfigurations;
+    }
+});
 
 
 var startPostInfoProcess = function(postInfo) {
