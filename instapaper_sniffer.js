@@ -7,4 +7,4 @@ var instapaperSniffer = {
                 description: info.requestBody.formData.t,
                 capturer: this}
     }
-}
+};

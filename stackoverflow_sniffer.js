@@ -2,7 +2,6 @@ var stackoverflowSniffer = {
     name: "stackoverflow.com",
     onRequest: function(info) {
         var starUrl = info.url;
-        starUrl
         return {tags: "star", 
                 postingUrl: info.url.substring(0, info.url.length - "/vote/5".length),
                 description: info.url.substring(0, info.url.length - "/vote/5".length),
@@ -15,4 +14,4 @@ var stackoverflowSniffer = {
             return true;
         return false;
     }
-}
+};

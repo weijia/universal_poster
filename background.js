@@ -58,36 +58,34 @@ var startPostInfoProcess = function(postInfo) {
     
 }
 
+//Only URL match will be used
 var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
                             "https://www.instapaper.com/bookmarklet/": instapaperSniffer,
-                            "http://www.instapaper.com/bookmarklet/": instapaperSniffer
+                            "http://www.instapaper.com/bookmarklet/": instapaperSniffer,
+                            "http://my.yihaodian.com/member/myNewCollection/addNewFavorite.do": yihaodianSniffer
 };
 
+//Sniffer callback will be used to determine if the item matches the criteria
 var snifferEngineList = [githubSniffer, stackoverflowSniffer];
 
 chrome.webRequest.onBeforeRequest.addListener(
     function(info) {
         var submitPackage = {};
         console.log("url intercepted: " + info.url, info);
-        //chrome.tabs.sendMessage(info.tabId, any message, function responseCallback);
+        var matched = false;
         for(var matchUrl in snifferEngineDict){
             if(snifferEngineDict.hasOwnProperty(matchUrl))  // Ref: http://stackoverflow.com/questions/890807/iterate-over-a-javascript-associative-array-in-sorted-order
             {
-                var expectedUrlPos = info.url.indexOf(matchUrl);
-                if(-1 != expectedUrlPos){
-                    var postInfo = snifferEngineDict[matchUrl].onRequest(info);
-                    startPostInfoProcess(postInfo);
-                }
+                if(-1 != info.url.indexOf(matchUrl)) matched = true;
             }
-
         }
         for(var index=0;index<snifferEngineList.length;index++){
-            if(snifferEngineList[index].matchUrl(info)) {
-                var postInfo = snifferEngineList[index].onRequest(info);
-                startPostInfoProcess(postInfo);
-            }
+            if(snifferEngineList[index].matchUrl(info)) matched = true;
         }
-
+        if(matched){
+            var postInfo = snifferEngineDict[matchUrl].onRequest(info, startPostInfoProcess);
+            if(postInfo) startPostInfoProcess(postInfo);
+        }
     },
     // filters
     {
