@@ -33,7 +33,20 @@
         <div class="status"></div>
         <button id="duapp-save" class="save">Save</button>
     </div>
+    <div id="localserver-info" class="input-fields">
+        <p><h1>Local server account information</h1></p>
+        <p>Normally, you may not need to change URL for this site</p>
+        <label for="localserver-url">Post URL: </label>
+            <input id="localserver-url" class="url" type="text" size="100" disabled="true"
+                   value="https://127.0.0.1:8110/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}"/>
+            <br/>
+        <label for="localserver-username">Username: </label><input id="localserver-username" class="username" type="text"/>
+        <label for="localserver-password">Password: </label><input id="localserver-password" class="password" type="password"/>
 
+        <br>
+        <div class="status"></div>
+        <button id="duapp-save" class="save">Save</button>
+    </div>
 
 </body>
 <script src="options.js"></script>
