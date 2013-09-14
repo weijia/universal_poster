@@ -29,8 +29,6 @@
   "background": {
     "scripts": ["poster.js", "cang_sniffer.js", "instapaper_sniffer.js", "github_sniffer.js",
         "bae_backend.js", "stackoverflow_sniffer.js", "instapaper_backend.js", "yihaodian_sniffer.js",
-
-        //The following must be place at last
         "background.js"
         ]
   }
