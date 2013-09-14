@@ -54,3 +54,11 @@ function restore_options() {
 document.addEventListener('DOMContentLoaded', restore_options);
 //document.querySelector('.save').addEventListener('click', save_options);
 $(".save").click(save_options);
+//To enable private servers, input: chrome.storage.sync.set({"showPrivateFlag": true}, function(e){console.log("Done");})
+chrome.storage.sync.get("showPrivateFlag", function(items){
+    console.log(items);
+    if(items["showPrivateFlag"])
+        $(".private").css("display", "block");
+        //console.log("display");
+});
+
