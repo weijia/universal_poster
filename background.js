@@ -116,7 +116,7 @@ chrome.webRequest.onBeforeRequest.addListener(
         for(var index=0;index<snifferEngineList.length;index++){
             if(snifferEngineList[index].matchUrl(info)) matchedEngine = snifferEngineList[index];
         }
-        if(matched){
+        if(matchedEngine){
             var postInfo = matchedEngine.onRequest(info, startPostInfoProcess);
             if(postInfo) startPostInfoProcess(postInfo);
         }
