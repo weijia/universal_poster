@@ -32,7 +32,7 @@ function save_options(e) {
         //message('Settings saved');
         // Update status to let user know options were saved.
         var status = $(".status", field)[0];
-        status.innerHTML = "Options Saved.";
+        status.innerHTML = chrome.i18n.getMessage("optionSaved");//"Options Saved.";
         setTimeout(function() {
             status.innerHTML = "";
         }, 750);

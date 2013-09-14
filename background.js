@@ -10,8 +10,8 @@ chrome.storage.sync.get(["siteConfigurations"], function(items){
         // Create a simple text notification:
         var notification = webkitNotifications.createNotification(
             '',
-            'Universal poster warning!',  // notification title
-            'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
+            chrome.i18n.getMessage("notificationWarningTitle"), //'Universal poster warning!',  // notification title
+            chrome.i18n.getMessage("notificationAccountWarning"), //'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
         );
         notification.show();
     }
@@ -36,37 +36,7 @@ var startPostInfoProcess = function(postInfo) {
                 continue;//Captured from instapaper, so it is already posted to instapaper. Ignore this post
         postUrlWithCallback(postUrl, function(data){console.log("post result:", data);});
     }
-    /*
-    JSON.parse(localStorage["siteConfigurations"])
-    var postUrl = "";
-    chrome.storage.sync.get(["duapp-username", "duapp-password"], function(items){
-        //console.log(items);
-        //console.log(items["duapp-username"], items["duapp-password"]);
-        if(items["duapp-username"] && items["duapp-password"]){
-            postUrl = baeBackend.getPostUrl(items["duapp-username"], items["duapp-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
-            postUrlWithCallback(postUrl, function(data){console.log("BAE post result:", data);});
-        }
-        else{
-            console.log("You must first set your username for BAE backend in option");
-        }
-    });
-    
-    console.log("capturer:", postInfo.capturer.name);
-    
-    var instapaperPostUrl = "";
-    if((postInfo.capturer.name != "instapaper.com")){
-        chrome.storage.sync.get(["instapaper-username", "instapaper-password"], function(items){
-            //console.log(items);
-            //console.log(items["instapaper-username"], items["instapaper-password"]);
-            if(items["instapaper-username"] && items["instapaper-password"]){
-                instapaperPostUrl = instapaperBackend.getPostUrl(items["instapaper-username"], items["instapaper-password"], postInfo.tags, postInfo.postingUrl, postInfo.description);
-                if(instapaperPostUrl != "") postUrlWithCallback(instapaperPostUrl, function(data){console.log("instapaper post result:", data);});
-            }
-            else{
-                console.log("You must first set your instapaper username in option");
-            }
-        });
-    }*/
+
     
     // Note: There's no need to call webkitNotifications.checkPermission().
     // Extensions that declare the notifications permission are always
@@ -75,7 +45,7 @@ var startPostInfoProcess = function(postInfo) {
     // Create a simple text notification:
     var notification = webkitNotifications.createNotification(
       '',
-      'Universal poster: Posting!',  // notification title
+      chrome.i18n.getMessage("notificationPostingTitle"),//'Universal poster: Posting!',  // notification title
       postInfo.postingUrl  // notification body text
     );
     /*
