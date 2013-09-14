@@ -106,18 +106,18 @@ chrome.webRequest.onBeforeRequest.addListener(
     function(info) {
         var submitPackage = {};
         console.log("url intercepted: " + info.url, info);
-        var matched = false;
+        var matchedEngine = false;
         for(var matchUrl in snifferEngineDict){
             if(snifferEngineDict.hasOwnProperty(matchUrl))  // Ref: http://stackoverflow.com/questions/890807/iterate-over-a-javascript-associative-array-in-sorted-order
             {
-                if(-1 != info.url.indexOf(matchUrl)) matched = true;
+                if(-1 != info.url.indexOf(matchUrl)) matchedEngine = snifferEngineDict[matchUrl];
             }
         }
         for(var index=0;index<snifferEngineList.length;index++){
-            if(snifferEngineList[index].matchUrl(info)) matched = true;
+            if(snifferEngineList[index].matchUrl(info)) matchedEngine = snifferEngineList[index];
         }
         if(matched){
-            var postInfo = snifferEngineDict[matchUrl].onRequest(info, startPostInfoProcess);
+            var postInfo = matchedEngine.onRequest(info, startPostInfoProcess);
             if(postInfo) startPostInfoProcess(postInfo);
         }
     },
