@@ -11,7 +11,7 @@ chrome.storage.sync.get(["siteConfigurations"], function(items){
         var notification = webkitNotifications.createNotification(
             '',
             chrome.i18n.getMessage("notificationWarningTitle"), //'Universal poster warning!',  // notification title
-            chrome.i18n.getMessage("notificationAccountWarning"), //'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
+            chrome.i18n.getMessage("notificationAccountWarning") //'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
         );
         notification.show();
     }
