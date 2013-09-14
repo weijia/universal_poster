@@ -5,6 +5,7 @@ var siteConfigurations = null;
 chrome.storage.sync.get(["siteConfigurations"], function(items){
     siteConfigurations = items["siteConfigurations"];
     if(!siteConfigurations){
+        localStorage["siteConfigurations"] = [];
         console.log("You must first set sites you want to post to. Please open option page for this extension.");
         // Create a simple text notification:
         var notification = webkitNotifications.createNotification(

@@ -11,8 +11,11 @@ function save_options(e) {
     var siteUrl=$(".url", field).val();
     var username=$(".username", field).val();
     var password=$(".password", field).val();
-    savingItem["siteConfigurations"] = JSON.parse(localStorage["siteConfigurations"]);
-    //savingItem["siteConfigurations"] = [];
+    if(localStorage["siteConfigurations"])
+        savingItem["siteConfigurations"] = JSON.parse(localStorage["siteConfigurations"]);
+    else
+        savingItem["siteConfigurations"] = []
+
     var foundItem = false;
     for(var index=0; index<savingItem["siteConfigurations"].length; index++){
         if(savingItem["siteConfigurations"][index].siteUrl == siteUrl){
