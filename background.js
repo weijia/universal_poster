@@ -27,8 +27,8 @@ var startPostInfoProcess = function(postInfo) {
         var username = siteConfigurations[index].username;
         var password = siteConfigurations[index].password;
         var postUrl = siteConfigurations[index].siteUrl.replace("{username}", username);
-        postUrl = postUrl.replace("{password}", password).replace("{url}", postInfo.postingUrl);
-        postUrl = postUrl.replace("{tags}", postInfo.tags).replace("{description}", postInfo.description);
+        postUrl = postUrl.replace("{password}", password).replace("{url}", encodeURI(postInfo.postingUrl));
+        postUrl = postUrl.replace("{tags}", encodeURI(postInfo.tags)).replace("{description}", encodeURI(postInfo.description));
         console.log(postUrl);
         if((postInfo.capturer.name == "instapaper.com") &&
             (-1!=siteConfigurations[index].siteUrl.indexOf("instapaper.com")))
