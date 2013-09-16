@@ -1,0 +1,17 @@
+{
+    "extName":{
+        "message": "Instapaper auto poster"
+    },
+    "notificationWarningTitle":{
+        "message": "Universal poster warning!"
+    },
+    "notificationAccountWarning":{
+        "message": "You must first set sites you want to post to. Please open option page for this extension."
+    },
+    "notificationPostingTitle":{
+        "message": "Universal poster: Posting!"
+    },
+    "optionSaved":{
+        "message": "Options Saved."
+    }
+}

@@ -15,4 +15,4 @@ var githubSniffer = {
             return true;
         return false;
     }
-}
+};
