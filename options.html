@@ -17,7 +17,7 @@
 
         <br>
         <div class="status"></div>
-        <button id="instapaper-save" class="save">Save</button>
+        <button class="save">Save</button>
     </div>
     <div id="duapp-info" class="input-fields private" style="display:none;">
         <p><h1>Duapp account information</h1></p>
@@ -31,7 +31,7 @@
 
         <br>
         <div class="status"></div>
-        <button id="duapp-save" class="save">Save</button>
+        <button class="save">Save</button>
     </div>
     <div id="duapp-info-2" class="input-fields private" style="display:none;">
         <p><h1>Duapp account information</h1></p>
@@ -45,7 +45,7 @@
 
         <br>
         <div class="status"></div>
-        <button id="duapp-save-2" class="save">Save</button>
+        <button class="save">Save</button>
     </div>
     <div id="localserver-info" class="input-fields private" style="display:none;">
         <p><h1>Local server account information</h1></p>
@@ -59,7 +59,21 @@
 
         <br>
         <div class="status"></div>
-        <button id="localserver-save" class="save">Save</button>
+        <button class="save">Save</button>
+    </div>
+    <div id="localserver-info-2" class="input-fields private" style="display:none;">
+        <p><h1>Local server account information</h1></p>
+        <p>Normally, you may not need to change URL for this site</p>
+        <label for="localserver-url-2">Post URL: </label>
+            <input id="localserver-url-2" class="url" type="text" size="100" disabled="true"
+                   value="http://127.0.0.1:8210/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}"/>
+            <br/>
+        <label for="localserver-username">Username: </label><input id="localserver-username-2" class="username" type="text"/>
+        <label for="localserver-password">Password: </label><input id="localserver-password-2" class="password" type="password"/>
+
+        <br>
+        <div class="status"></div>
+        <button class="save">Save</button>
     </div>
 
 </body>
