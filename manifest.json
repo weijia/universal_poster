@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extName__",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "manifest_version": 2,
   "description": "Post every stared thing to instapaper and BAE backend",
   "permissions": [
@@ -11,6 +11,7 @@
     "https://github.com/*/star",
     "http://stackoverflow.com/posts/*",
     "http://my.yihaodian.com/member/myNewCollection/*",
+    "http://my.1mall.com/member/myNewCollection/*",
     "notifications",
     "storage",
     "tabs"
