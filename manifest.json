@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extName__",
-  "version": "2.9.4",
+  "version": "2.9.5",
   "manifest_version": 2,
   "description": "Post every stared thing to instapaper and BAE backend",
   "permissions": [
@@ -12,6 +12,7 @@
     "http://stackoverflow.com/posts/*",
     "http://my.yihaodian.com/member/myNewCollection/*",
     "http://my.1mall.com/member/myNewCollection/*",
+    "http://base.yixun.com/json.php*",
     "notifications",
     "storage",
     "tabs"
@@ -30,6 +31,7 @@
   "background": {
     "scripts": ["poster.js", "cang_sniffer.js", "instapaper_sniffer.js", "github_sniffer.js",
         "bae_backend.js", "stackoverflow_sniffer.js", "instapaper_backend.js", "yihaodian_sniffer.js",
+        "common_sniffer.js",
         "background.js"
         ]
   },

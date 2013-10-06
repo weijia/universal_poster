@@ -67,7 +67,8 @@ var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
                             "https://www.instapaper.com/bookmarklet/": instapaperSniffer,
                             "http://www.instapaper.com/bookmarklet/": instapaperSniffer,
                             "http://my.yihaodian.com/member/myNewCollection/addNewFavorite.do": yihaodianSniffer,
-                            "http://my.1mall.com/member/myNewCollection/addNewFavorite.do": yihaodianSniffer
+                            "http://my.1mall.com/member/myNewCollection/addNewFavorite.do": yihaodianSniffer,
+                            "http://base.yixun.com/json.php?mod=favor&act=add": commonSniffer
 };
 
 //Sniffer callback will be used to determine if the item matches the criteria
