@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extName__",
-  "version": "2.9.5",
+  "version": "2.9.6",
   "manifest_version": 2,
   "description": "Post every stared thing to instapaper and BAE backend",
   "permissions": [

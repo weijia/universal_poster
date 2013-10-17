@@ -1,11 +1,16 @@
 var stackoverflowSniffer = {
     name: "stackoverflow.com",
-    onRequest: function(info) {
+    onRequest: function(info, callback) {
         var starUrl = info.url;
-        return {tags: "star", 
-                postingUrl: info.url.substring(0, info.url.length - "/vote/5".length).replace("\/posts\/","/questions/"),
-                description: info.url.substring(0, info.url.length - "/vote/5".length).replace("\/posts\/","/questions/"),
-                capturer: this}
+        chrome.tabs.get(info.tabId, function(tab){
+            var postingItem = {tags: "star",
+                postingUrl: tab.url,
+                description: tab.title,
+                capturer: this};
+            console.log("stackoverflow posting:", postingItem);
+            callback(postingItem);
+        });
+        return false;
     },
     matchUrl: function(info) {
         if((info.url.indexOf("http://stackoverflow.com/posts/") == 0) &&
