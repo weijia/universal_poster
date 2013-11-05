@@ -25,9 +25,7 @@ chrome.storage.sync.get(["captureUrlList"], function(items){
     if(!captureUrlList){
         captureUrlList = ["http://base.yixun.com/json.php?mod=favor&act=add"];
     }
-    else{
-        localStorage["captureUrlList"] = JSON.stringify(captureUrlList);
-    }
+    localStorage["captureUrlList"] = JSON.stringify(captureUrlList);
 });
 
 function getCaptureUrlList(){
@@ -44,11 +42,13 @@ var startPostInfoProcess = function(postInfo) {
         var postUrl = siteConfigurations[index].siteUrl.replace("{username}", username);
         postUrl = postUrl.replace("{password}", password).replace("{url}", encodeURIComponent(postInfo.postingUrl));
         postUrl = postUrl.replace("{tags}", encodeURIComponent(postInfo.tags)).replace("{description}", encodeURIComponent(postInfo.description));
-        console.log(postUrl);
+        //console.log(postUrl);
         if((postInfo.capturer.name == "instapaper.com") &&
             (-1!=siteConfigurations[index].siteUrl.indexOf("instapaper.com")))
                 continue;//Captured from instapaper, so it is already posted to instapaper. Ignore this post
-        postUrlWithCallback(postUrl, function(data){console.log("post result:", data);});
+        postUrlWithCallback(postUrl, function(data){
+            //console.log("post result:", data);
+        });
     }
 
     
@@ -103,8 +103,9 @@ chrome.webRequest.onBeforeRequest.addListener(
         }
         //Customizable URL matching, will use common sniffer for all customized URL capturing
         var captureUrlList = getCaptureUrlList();
+        //console.log(captureUrlList);
         for(var index=0;index<captureUrlList.length;index++){
-            if(-1 != info.url.indexOf(snifferEngineList[index])) matchedEngine = commonSniffer;
+            if(-1 != info.url.indexOf(captureUrlList[index])) matchedEngine = commonSniffer;
         }
         
         if(matchedEngine){
