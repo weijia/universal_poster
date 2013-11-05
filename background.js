@@ -19,6 +19,20 @@ chrome.storage.sync.get(["siteConfigurations"], function(items){
         localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
     }
 });
+var captureUrlList = null;
+chrome.storage.sync.get(["captureUrlList"], function(items){
+    captureUrlList = items["captureUrlList"];
+    if(!captureUrlList){
+        captureUrlList = ["http://base.yixun.com/json.php?mod=favor&act=add"];
+    }
+    else{
+        localStorage["captureUrlList"] = JSON.stringify(captureUrlList);
+    }
+});
+
+function getCaptureUrlList(){
+    return JSON.parse(localStorage["captureUrlList"]);
+}
 
 
 var startPostInfoProcess = function(postInfo) {
@@ -67,8 +81,7 @@ var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
                             "https://www.instapaper.com/bookmarklet/": instapaperSniffer,
                             "http://www.instapaper.com/bookmarklet/": instapaperSniffer,
                             "http://my.yihaodian.com/member/myNewCollection/addNewFavorite.do": yihaodianSniffer,
-                            "http://my.1mall.com/member/myNewCollection/addNewFavorite.do": yihaodianSniffer,
-                            "http://base.yixun.com/json.php?mod=favor&act=add": commonSniffer
+                            "http://my.1mall.com/member/myNewCollection/addNewFavorite.do": yihaodianSniffer
 };
 
 //Sniffer callback will be used to determine if the item matches the criteria
@@ -88,6 +101,12 @@ chrome.webRequest.onBeforeRequest.addListener(
         for(var index=0;index<snifferEngineList.length;index++){
             if(snifferEngineList[index].matchUrl(info)) matchedEngine = snifferEngineList[index];
         }
+        //Customizable URL matching, will use common sniffer for all customized URL capturing
+        var captureUrlList = getCaptureUrlList();
+        for(var index=0;index<captureUrlList.length;index++){
+            if(-1 != info.url.indexOf(snifferEngineList[index])) matchedEngine = commonSniffer;
+        }
+        
         if(matchedEngine){
             var postInfo = matchedEngine.onRequest(info, startPostInfoProcess);
             if(postInfo) startPostInfoProcess(postInfo);
