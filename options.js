@@ -1,7 +1,5 @@
 // Save this script as `options.js`
 
-// Saves options to localStorage.
-function save_options(e) {
     /*
     v3 below:
         chrome sync storage => {
@@ -23,6 +21,11 @@ function save_options(e) {
             }
         }
     */
+
+/*
+// Saves options to localStorage.
+function save_options(e) {
+
     var fields = $(e.target).parents(".input-fields");
     var savingItem = {};
     $.each($("input", fields), function(key, value){
@@ -89,3 +92,44 @@ chrome.storage.sync.get("showPrivateFlag", function(items){
         //console.log("display");
 });
 
+*/
+var config = {
+    "storageSites": [{
+        "siteUrl": "siteUrl",
+            "username": "username",
+            "password": "password"
+    },{
+        "siteUrl": "siteUrl",
+            "username": "username",
+            "password": "password"
+    }],
+        "capturingUrls": ["http://base.yixun.com/json.php?mod=favor&act=add", "hello world"]
+};
+
+var descriptions = {
+    "storageSites": "Bookmark Storage Site Configurations:",
+        "siteUrl": "Post URL for bookmark storage site:",
+        "username": "Username:",
+        "password": "Password:",
+    "capturingUrls": "URLs to capture:"
+};
+chrome.storage.sync.get(["siteConfigurations"], function(items){
+    siteConfigurations = items["siteConfigurations"];
+    if(!siteConfigurations){
+        localStorage["siteConfigurations"] = [];
+        console.log("You must first set sites you want to post to. Please open option page for this extension.");
+        // Create a simple text notification:
+        var notification = webkitNotifications.createNotification(
+            '',
+            chrome.i18n.getMessage("notificationWarningTitle"), //'Universal poster warning!',  // notification title
+            chrome.i18n.getMessage("notificationAccountWarning") //'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
+        );
+        notification.show();
+    }
+    else{
+        localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
+    }
+    console.log(JSON.stringify(siteConfigurations));
+    localStorage["exportedConfigString"] = JSON.stringify(siteConfigurations);
+    $("#input-form").createForm({"config": siteConfigurations, "descriptions": descriptions});
+});

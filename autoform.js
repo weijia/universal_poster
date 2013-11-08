@@ -1,25 +1,3 @@
-var config = {
-    "storageSites": [{
-        "siteUrl": "siteUrl",
-            "username": "username",
-            "password": "password"
-    },{
-        "siteUrl": "siteUrl",
-            "username": "username",
-            "password": "password"
-    }],
-        "capturingUrls": ["http://base.yixun.com/json.php?mod=favor&act=add", "hello world"]
-};
-
-var descriptions = {
-    "storageSites": "Bookmark Storage Site Configurations:",
-        "siteUrl": "Post URL for bookmark storage site:",
-        "username": "Username:",
-        "password": "Password:",
-    "capturingUrls": "URLs to capture:"
-};
-
-
 (function ($) {
     function isStr(obj) {
         return typeof obj == 'string' || obj instanceof String;
@@ -81,16 +59,13 @@ var descriptions = {
 
     $.fn.extend({
         createForm: function (content) {
-            this.each(function (content) {
+            this.each(function () {
                 //$(this).html("bye");
                 //genForm($(this), config["storageSites"]);
-                genForm($(this), config, descriptions);
+                genForm($(this), content["config"], content["descriptions"]);
             });
         }
 
     });
 })(jQuery);
 
-
-
-$("#input-form").createForm();

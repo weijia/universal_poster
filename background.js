@@ -19,6 +19,7 @@ chrome.storage.sync.get(["siteConfigurations"], function(items){
         localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
     }
     console.log(JSON.stringify(siteConfigurations));
+    localStorage["exportedConfigString"] = JSON.stringify(siteConfigurations);
 });
 var captureUrlList = null;
 chrome.storage.sync.get(["captureUrlList"], function(items){

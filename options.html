@@ -3,86 +3,11 @@
 <head>
     <title>Options</title>
     <script src="/jquery-1.9.1.min.js"></script>
+    <script src="/autoform.js"></script>
 </head>
 <body>
-    <div id="instapaper-info" class="input-fields">
-        <p><h1>Instapaper account infomation.</h1></p>
-        <p>Normally, you may not need to change URL for this site</p>
-        <label for="instapaper-url">Post URL: </label>
-            <input id="instapaper-url" class="url" type="text" size="100" disabled="true"
-                   value="https://www.instapaper.com/api/add?username={username}&password={password}&url={url}&title={description}"/>
-            <br/>
-        <label for="instapaper-username">Username: </label><input id="instapaper-username" class="username" type="text"/>
-        <label for="instapaper-password">Password: </label><input id="instapaper-password" class="password" type="password"/>
-
-        <br>
-        <div class="status"></div>
-        <button class="save">Save</button>
+    <div id="input-form">
     </div>
-    <div id="duapp-info" class="input-fields private" style="display:none;">
-        <p><h1>Duapp account information</h1></p>
-        <p>Normally, you may not need to change URL for this site</p>
-        <label for="duapp-url">Post URL: </label>
-            <input id="duapp-url" class="url" type="text" size="100" disabled="true"
-                   value="https://mycampus.duapp.com/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}"/>
-            <br/>
-        <label for="duapp-username">Username: </label><input id="duapp-username" class="username" type="text"/>
-        <label for="duapp-password">Password: </label><input id="duapp-password" class="password" type="password"/>
-
-        <br>
-        <div class="status"></div>
-        <button class="save">Save</button>
-    </div>
-    <div id="duapp-info-2" class="input-fields private" style="display:none;">
-        <p><h1>Duapp account information</h1></p>
-        <p>Normally, you may not need to change URL for this site</p>
-        <label for="duapp-url-2">Post URL: </label>
-            <input id="duapp-url-2" class="url" type="text" size="100" disabled="true"
-                   value="https://allbookmarks.duapp.com/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}"/>
-            <br/>
-        <label for="duapp-username-2">Username: </label><input id="duapp-username-2" class="username" type="text"/>
-        <label for="duapp-password-2">Password: </label><input id="duapp-password-2" class="password" type="password"/>
-
-        <br>
-        <div class="status"></div>
-        <button class="save">Save</button>
-    </div>
-    <div id="localserver-info" class="input-fields private" style="display:none;">
-        <p><h1>Local server account information</h1></p>
-        <p>Normally, you may not need to change URL for this site</p>
-        <label for="localserver-url">Post URL: </label>
-            <input id="localserver-url" class="url" type="text" size="100" disabled="true"
-                   value="http://127.0.0.1:8110/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}"/>
-            <br/>
-        <label for="localserver-username">Username: </label><input id="localserver-username" class="username" type="text"/>
-        <label for="localserver-password">Password: </label><input id="localserver-password" class="password" type="password"/>
-
-        <br>
-        <div class="status"></div>
-        <button class="save">Save</button>
-    </div>
-    <div id="localserver-info-2" class="input-fields private" style="display:none;">
-        <p><h1>Local server account information</h1></p>
-        <p>Normally, you may not need to change URL for this site</p>
-        <label for="localserver-url-2">Post URL: </label>
-            <input id="localserver-url-2" class="url" type="text" size="100" disabled="true"
-                   value="http://127.0.0.1:8210/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}"/>
-            <br/>
-        <label for="localserver-username">Username: </label><input id="localserver-username-2" class="username" type="text"/>
-        <label for="localserver-password">Password: </label><input id="localserver-password-2" class="password" type="password"/>
-
-        <br>
-        <div class="status"></div>
-        <button class="save">Save</button>
-    </div>
-    <div class="input-fields private">
-        <p><h1>List of URL to capture</h1></p>
-        <label for="common-catpure-urls">Capturing URL: </label>
-        <input id="common-capture-urls" size="200"/>
-        <div class="status"></div>
-        <button class="save">Save</button>
-    </div>
-
 </body>
 <script src="options.js"></script>
 </html>
