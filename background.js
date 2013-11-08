@@ -18,6 +18,7 @@ chrome.storage.sync.get(["siteConfigurations"], function(items){
     else{
         localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
     }
+    console.log(JSON.stringify(siteConfigurations));
 });
 var captureUrlList = null;
 chrome.storage.sync.get(["captureUrlList"], function(items){
@@ -40,6 +41,7 @@ var startPostInfoProcess = function(postInfo) {
         var username = siteConfigurations[index].username;
         var password = siteConfigurations[index].password;
         var postUrl = siteConfigurations[index].siteUrl.replace("{username}", username);
+        if(!postUrl) continue;
         postUrl = postUrl.replace("{password}", password).replace("{url}", encodeURIComponent(postInfo.postingUrl));
         postUrl = postUrl.replace("{tags}", encodeURIComponent(postInfo.tags)).replace("{description}", encodeURIComponent(postInfo.description));
         //console.log(postUrl);
