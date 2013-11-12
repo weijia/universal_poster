@@ -23,7 +23,8 @@ var captureUrlList = null;
 chrome.storage.sync.get(["captureUrlList"], function(items){
     captureUrlList = items["captureUrlList"];
     if(!captureUrlList){
-        captureUrlList = ["http://base.yixun.com/json.php?mod=favor&act=add"];
+        captureUrlList = ["http://base.yixun.com/json.php?mod=favor&act=add",
+                            "https://www.facebook.com/plugins/like/connect"];
     }
     localStorage["captureUrlList"] = JSON.stringify(captureUrlList);
 });
