@@ -1,18 +1,11 @@
 {
   "name": "__MSG_extName__",
-  "version": "3.0.1",
+  "version": "3.1.1",
   "manifest_version": 2,
   "description": "Post every stared thing to instapaper and BAE backend",
   "permissions": [
-    "https://mycampus.duapp.com/*",
+    "*://*/",
     "webRequest",
-    "*://cang.baidu.com/",
-    "*://www.instapaper.com/",
-    "https://github.com/*/star",
-    "http://stackoverflow.com/posts/*",
-    "http://my.yihaodian.com/member/myNewCollection/*",
-    "http://my.1mall.com/member/myNewCollection/*",
-    "http://base.yixun.com/json.php*",
     "notifications",
     "storage",
     "tabs"
