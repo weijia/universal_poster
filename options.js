@@ -129,7 +129,8 @@ chrome.storage.sync.get(["siteConfigurations"], function(items){
     else{
         localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
     }
-    console.log(JSON.stringify(siteConfigurations));
+    //console.log(JSON.stringify(siteConfigurations));
     localStorage["exportedConfigString"] = JSON.stringify(siteConfigurations);
     $("#input-form").createForm({"config": siteConfigurations, "descriptions": descriptions});
+    console.log(JSON.stringify($("#input-form").getData()[0]));
 });

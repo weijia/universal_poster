@@ -46,7 +46,7 @@
         var genElemStr = "";
         if (Object.prototype.toString.call(formInfo) === '[object Array]') {
             for (var index = 0; index < formInfo.length; index++) {
-                genElemStr += ('<div class="' + index + '"></div>');
+                genElemStr += ('<div class="' + index + '" style="border: 1px solid"></div>');
             }
             jqueryElem.html(genElemStr);
             for (var index = 0; index < formInfo.length; index++) {
@@ -54,6 +54,25 @@
             }
         } else {
             genObjInput(jqueryElem, formInfo, descriptions);
+        }
+    }
+    
+    function getDataFromItem(item){
+        if(item.hasClass("attr-input")){
+            var inputElem = $("input", item);
+            console.log(inputElem.val());
+            var attr = inputElem.attr("class");
+            var val = inputElem.val()
+            var res = new Object();
+            res[attr] = val;
+            return res;
+        }
+        else{
+            var res = []
+            $(item).children('div').each(function(){
+                res.push(getDataFromItem($(this)));
+            });
+            return res;
         }
     }
 
@@ -64,6 +83,13 @@
                 //genForm($(this), config["storageSites"]);
                 genForm($(this), content["config"], content["descriptions"]);
             });
+        },
+        getData: function () {
+            var res = [];
+            this.each(function (){
+                res.push(getDataFromItem($(this)));
+            });
+            return res;
         }
 
     });
