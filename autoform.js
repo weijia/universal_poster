@@ -18,19 +18,20 @@
         //alert(formInfo);
 
         //var inputHtmlStr = "";
-        jqueryElem.html("");
+        jqueryElem.html('<div class="obj-attrs"></div>');
+        var innerElem = $(".obj-attrs", jqueryElem);
         for (var attr in formInfo) {
             var cnt = 0;
             if (formInfo.hasOwnProperty(attr)) {
                 if (isStr(formInfo[attr])) {
                     //{"good":"bad"}, attr="good";formInfo[attr]="bad";
                     descriptionText = getDescription(descriptions, attr);
-                    jqueryElem.append('<div class="attr-input"><label>' + descriptionText +
+                    innerElem.append('<div class="attr-input"><label>' + descriptionText +
                         '</label><input class="'+attr+'" value="' + formInfo[attr] + '"/></div>');
                 } else {
                     var newItem = $('<div><p><h1>' + getDescription(descriptions, attr) +
                         '</h1></p><div class="content"></div></div>');
-                    jqueryElem.append(newItem);
+                    innerElem.append(newItem);
                     genForm($(".content", newItem), formInfo[attr], descriptions);
                 }
             }
@@ -46,7 +47,7 @@
         var genElemStr = "";
         if (Object.prototype.toString.call(formInfo) === '[object Array]') {
             for (var index = 0; index < formInfo.length; index++) {
-                genElemStr += ('<div class="' + index + '" style="border: 1px solid"></div>');
+                genElemStr += ('<div class="' + index + ' list-item" style="border: 1px solid"></div>');
             }
             jqueryElem.html(genElemStr);
             for (var index = 0; index < formInfo.length; index++) {
@@ -57,19 +58,34 @@
         }
     }
     
-    function getDataFromItem(item){
+    function getDataFromObjAttrNode(item){
         if(item.hasClass("attr-input")){
             var inputElem = $("input", item);
-            console.log(inputElem.val());
+            //console.log(inputElem.val());
             var attr = inputElem.attr("class");
             var val = inputElem.val()
             var res = new Object();
             res[attr] = val;
             return res;
         }
-        else{
-            var res = []
-            $(item).children('div').each(function(){
+    }
+    
+    function getDataFromItem(item){
+        if(item.hasClass("obj-attrs")){
+            var res = new Object();
+            item.children('div').each(function(){
+                var pair = getDataFromObjAttrNode($(this));
+                $.each(pair, function(key, value){
+                    res[key] = value;
+                });
+            });
+            return res;
+        }else if(item.hasClass("list-item")){
+            var onlyItem = item.children('div')[0];
+            return getDataFromItem($(onlyItem));
+        }else{
+            var res = [];
+            item.children('div').each(function(){
                 res.push(getDataFromItem($(this)));
             });
             return res;
