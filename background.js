@@ -26,7 +26,8 @@ chrome.storage.sync.get(["captureUrlList"], function(items){
     captureUrlList = items["captureUrlList"];
     if(!captureUrlList){
         captureUrlList = ["http://base.yixun.com/json.php?mod=favor&act=add",
-                            "https://www.facebook.com/plugins/like/connect"];
+                            "https://www.facebook.com/plugins/like/connect",
+                            "http://t.jd.com/product/followProduct.action"];
     }
     localStorage["captureUrlList"] = JSON.stringify(captureUrlList);
 });
@@ -128,7 +129,8 @@ chrome.webRequest.onBeforeRequest.addListener(
             "*://my.yihaodian.com/member/myNewCollection/*",
             "*://my.1mall.com/member/myNewCollection/*",
             "*://base.yixun.com/json.php*",
-            "*://www.facebook.com/plugins/like/connect"
+            "*://www.facebook.com/plugins/like/connect",
+            "*://t.jd.com/product/followProduct.action*"
             ]
     },
     ["requestBody"]

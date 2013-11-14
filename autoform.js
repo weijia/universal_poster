@@ -46,9 +46,11 @@
         }
         var genElemStr = "";
         if (Object.prototype.toString.call(formInfo) === '[object Array]') {
+            genElemStr += '<div class="list-group">';
             for (var index = 0; index < formInfo.length; index++) {
                 genElemStr += ('<div class="' + index + ' list-item" style="border: 1px solid"></div>');
             }
+            genElemStr += '</div>';
             jqueryElem.html(genElemStr);
             for (var index = 0; index < formInfo.length; index++) {
                 genForm($("." + index, jqueryElem), formInfo[index], descriptions);
@@ -98,6 +100,17 @@
                 //$(this).html("bye");
                 //genForm($(this), config["storageSites"]);
                 genForm($(this), content["config"], content["descriptions"]);
+                
+                //Create add new item button?
+                $(".list-group").prepend('<button class="add-item">Add</button>');
+                $("button").button().click(function(){
+                    console.log($(this));
+                    console.log(this);
+                    console.log($(this).parents(".list-group"));
+                    //$(this).parents(".list-group").after(""
+                    var newItem = $(".list-item:first", $(this).parents(".list-group")).clone()
+                    $(this).after(newItem);
+                });
             });
         },
         getData: function () {
