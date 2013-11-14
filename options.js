@@ -113,6 +113,42 @@ var descriptions = {
         "password": "Password:",
     "capturingUrls": "URLs to capture:"
 };
+
+function showNoConfigWarning(){
+    console.log("You must first set sites you want to post to. Please open option page for this extension.");
+    // Create a simple text notification:
+    var notification = webkitNotifications.createNotification(
+        '',
+        chrome.i18n.getMessage("notificationWarningTitle"), //'Universal poster warning!',  // notification title
+        chrome.i18n.getMessage("notificationAccountWarning") //'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
+    );
+    notification.show();
+}
+
+var universalPosterConfig = [
+    function(){
+        chrome.storage.sync.get(["siteConfigurations"], function(items){
+            siteConfigurations = items["siteConfigurations"];
+            if(!siteConfigurations){
+                localStorage["siteConfigurations"] = [];
+                showNoConfigWarning();
+            }
+            else{
+                localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
+            }
+        });
+    },
+    function (){
+    }
+];
+
+
+
+function setConfig(
+
+
+
+
 chrome.storage.sync.get(["siteConfigurations"], function(items){
     siteConfigurations = items["siteConfigurations"];
     if(!siteConfigurations){
