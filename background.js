@@ -43,6 +43,7 @@ var startPostInfoProcess = function(postInfo) {
         if((postInfo.capturer.name == "instapaper.com") &&
             (-1!=siteConfigurations[index].siteUrl.indexOf("instapaper.com")))
                 continue;//Captured from instapaper, so it is already posted to instapaper. Ignore this post
+                
         postUrlWithCallback(postUrl, function(data){
             //console.log("post result:", data);
         });
@@ -111,7 +112,7 @@ function onConfigLoaded(){
             for(var index=0;index<captureUrlList.length;index++){
                 if(-1 != info.url.indexOf(captureUrlList[index])){
                     matchedEngine = commonSniffer;
-                    console.log(captureUrlList[index], matchedEngine, info.url);
+                    //console.log(captureUrlList[index], matchedEngine, info.url);
                 }
             }
             
