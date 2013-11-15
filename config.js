@@ -30,6 +30,30 @@ function showNoConfigWarning() {
     notification.show();
 }
 
+function getCaptureUrls(){
+    return JSON.parse(localStorage["captureUrls"]);
+}
+
+function setCaptureUrls(captureUrls){
+    localStorage["captureUrls"] = JSON.stringify(captureUrls);
+}
+
+function getSiteConfigurations(){
+    return JSON.parse(localStorage["siteConfigurations"]);
+}
+
+function setSiteConfigurations(siteConfigurations){
+    localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
+}
+
+function getCurVerConfigFromLocalStorage(){
+    return JSON.parse(localStorage["curVerConfigFromLocalStorage"]);
+}
+
+function setCurVerConfigFromLocalStorage(curVerConfigFromLocalStorage){
+    localStorage["curVerConfigFromLocalStorage"] = JSON.stringify(curVerConfigFromLocalStorage)
+}
+
 function startLoadConfig(callbacks) {
     var onSuccess = callbacks["success"];
     var onFail = callbacks["fail"];
@@ -37,21 +61,12 @@ function startLoadConfig(callbacks) {
     chrome.storage.sync.get(["versionedConfig"], function (items) {
         var versionedConfig = items["versionedConfig"];
         if (versionedConfig) {
-            console.log(versionedConfig["configDict"]["1"]);
-            //localStorage["exportedConfigString"] = JSON.stringify(siteConfigurations);
-            $("#input-form").createForm({
-                "config": versionedConfig["configDict"]["1"],
-                    "descriptions": descriptions,
-                    "onsave": function () {
-                    var config = $("#input-form").getData()[0][0];
-                    console.log(config);
-                    saveConfig(config, onSuccess);
-                }
-            });
-            localStorage["captureUrls"] = versionedConfig["configDict"]["1"]["captureUrls"];
-            localStorage["siteConfigurations"] = versionedConfig["configDict"]["1"]["siteConfigurations"];
+            setCurVerConfigFromLocalStorage(versionedConfig["configDict"]["v1"]);
+            setCaptureUrls(versionedConfig["configDict"]["v1"]["captureUrls"]);
+            setSiteConfigurations(versionedConfig["configDict"]["v1"]["siteConfigurations"]);
             console.log(JSON.stringify(versionedConfig));
-            localStorage["versionedConfigLocalString1"] = JSON.stringify(versionedConfig);
+            localStorage[chrome.app.getDetails().version] = JSON.stringify(versionedConfig);
+            if(onSuccess) onSuccess();
         } else {
             if (onFail) onFail();
             else {
@@ -64,7 +79,7 @@ function startLoadConfig(callbacks) {
 
 function saveConfig(config, callback) {
     var savingUniversalPosterConfig = universalPosterConfigObj;
-    savingUniversalPosterConfig["versionedConfig"]["curConfigVer"] = "1";
+    savingUniversalPosterConfig["versionedConfig"]["curConfigVer"] = "v1";
     savingUniversalPosterConfig["versionedConfig"]["configDict"] = {
         "v1": config
     };
@@ -138,6 +153,8 @@ var defaultSiteConfigurations = [
 var defaultCaptureUrls = ["http://base.yixun.com/json.php?mod=favor&act=add",
     "https://www.facebook.com/plugins/like/connect",
     "http://t.jd.com/product/followProduct.action"];
+    
+    
 //TODO: Rewrite the codes use jquery defer
 //////////////////////////
 // External API for load config to localStorage

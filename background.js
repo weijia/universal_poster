@@ -1,62 +1,9 @@
 ///////////////////////
 // Initialize username and password from chrome cloud stoage
 ///////////////////////
-var siteConfigurations = null;
-chrome.storage.sync.get(["siteConfigurations"], function(items){
-    siteConfigurations = items["siteConfigurations"];
-    if(!siteConfigurations){
-        localStorage["siteConfigurations"] = [];
-        console.log("You must first set sites you want to post to. Please open option page for this extension.");
-        // Create a simple text notification:
-        var notification = webkitNotifications.createNotification(
-            '',
-            chrome.i18n.getMessage("notificationWarningTitle"), //'Universal poster warning!',  // notification title
-            chrome.i18n.getMessage("notificationAccountWarning") //'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
-        );
-        notification.show();
-    }
-    else{
-        localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
-    }
-    console.log(JSON.stringify(siteConfigurations));
-    localStorage["exportedConfigString"] = JSON.stringify(siteConfigurations);
-});
-var captureUrlList = null;
-chrome.storage.sync.get(["captureUrlList"], function(items){
-    captureUrlList = items["captureUrlList"];
-    if(!captureUrlList){
-        captureUrlList = ["http://base.yixun.com/json.php?mod=favor&act=add",
-                            "https://www.facebook.com/plugins/like/connect",
-                            "http://t.jd.com/product/followProduct.action"];
-    }
-    localStorage["captureUrlList"] = JSON.stringify(captureUrlList);
-});
-
-function getCaptureUrlList(){
-    return JSON.parse(localStorage["captureUrlList"]);
-}
 
 
-var startPostInfoProcess = function(postInfo) {
-    console.log(postInfo);
-    var siteConfigurations = JSON.parse(localStorage["siteConfigurations"]);
-    for(var index=0; index<siteConfigurations.length; index++){
-        var username = siteConfigurations[index].username;
-        var password = siteConfigurations[index].password;
-        var postUrl = siteConfigurations[index].siteUrl.replace("{username}", username);
-        if(!postUrl) continue;
-        postUrl = postUrl.replace("{password}", password).replace("{url}", encodeURIComponent(postInfo.postingUrl));
-        postUrl = postUrl.replace("{tags}", encodeURIComponent(postInfo.tags)).replace("{description}", encodeURIComponent(postInfo.description));
-        //console.log(postUrl);
-        if((postInfo.capturer.name == "instapaper.com") &&
-            (-1!=siteConfigurations[index].siteUrl.indexOf("instapaper.com")))
-                continue;//Captured from instapaper, so it is already posted to instapaper. Ignore this post
-        postUrlWithCallback(postUrl, function(data){
-            //console.log("post result:", data);
-        });
-    }
-
-    
+function notifyPost(postInfo){
     // Note: There's no need to call webkitNotifications.checkPermission().
     // Extensions that declare the notifications permission are always
     // allowed create notifications.
@@ -78,6 +25,30 @@ var startPostInfoProcess = function(postInfo) {
     setTimeout(function(){
       notification.cancel();
     }, 3000);
+}
+
+var startPostInfoProcess = function(postInfo) {
+    console.log(postInfo);
+    var siteConfigurations = getSiteConfigurations();
+    for(var index=0; index<siteConfigurations.length; index++){
+        //work arround for empty url setting
+        if(!siteConfigurations[index].siteUrl) continue;
+        var username = siteConfigurations[index].username;
+        var password = siteConfigurations[index].password;
+        var postUrl = siteConfigurations[index].siteUrl.replace("{username}", username);
+
+        postUrl = postUrl.replace("{password}", password).replace("{url}", encodeURIComponent(postInfo.postingUrl));
+        postUrl = postUrl.replace("{tags}", encodeURIComponent(postInfo.tags)).replace("{description}", encodeURIComponent(postInfo.description));
+        //console.log(postUrl);
+        if((postInfo.capturer.name == "instapaper.com") &&
+            (-1!=siteConfigurations[index].siteUrl.indexOf("instapaper.com")))
+                continue;//Captured from instapaper, so it is already posted to instapaper. Ignore this post
+        postUrlWithCallback(postUrl, function(data){
+            //console.log("post result:", data);
+        });
+    }
+
+    notifyPost(postInfo);
     
 }
 
@@ -102,12 +73,24 @@ var filterForPredefinedUrlPatterns = [
 
 function getFilters(){
     var filters = filterForPredefinedUrlPatterns;
-    for()
-    filters.push();
+    var captureUrls = getCaptureUrls();
+    for(var index=0;index<captureUrls.length;index++){
+        filters.push(captureUrls[index]+"*");
+    }
+    console.log(filters);
+    return filters;
 }
 
 
 function onConfigLoaded(){
+    var filters = getFilters();            
+    /*
+    "*://my.yihaodian.com/member/myNewCollection/*",
+                "*://my.1mall.com/member/myNewCollection/*",
+                "*://base.yixun.com/json.php*",
+                "*://www.facebook.com/plugins/like/connect",
+                "*://t.jd.com/product/followProduct.action*"
+                ]*/
     chrome.webRequest.onBeforeRequest.addListener(
         function(info) {
             var submitPackage = {};
@@ -123,10 +106,13 @@ function onConfigLoaded(){
                 if(snifferEngineList[index].matchUrl(info)) matchedEngine = snifferEngineList[index];
             }
             //Customizable URL matching, will use common sniffer for all customized URL capturing
-            var captureUrlList = getCaptureUrlList();
+            var captureUrlList = getCaptureUrls();
             //console.log(captureUrlList);
             for(var index=0;index<captureUrlList.length;index++){
-                if(-1 != info.url.indexOf(captureUrlList[index])) matchedEngine = commonSniffer;
+                if(-1 != info.url.indexOf(captureUrlList[index])){
+                    matchedEngine = commonSniffer;
+                    console.log(captureUrlList[index], matchedEngine, info.url);
+                }
             }
             
             if(matchedEngine){
@@ -136,17 +122,13 @@ function onConfigLoaded(){
         },
         // filters
         {
-            urls: 
-                "*://my.yihaodian.com/member/myNewCollection/*",
-                "*://my.1mall.com/member/myNewCollection/*",
-                "*://base.yixun.com/json.php*",
-                "*://www.facebook.com/plugins/like/connect",
-                "*://t.jd.com/product/followProduct.action*"
-                ]
+            urls: filters
         },
         ["requestBody"]
     );
 }
+
+loadConfig(onConfigLoaded);
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {

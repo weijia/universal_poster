@@ -16,7 +16,7 @@ function showNotificationForSavingConfig(){
 }
 
 loadConfig(function(){
-    $("#input-form").createForm({"config": versionedConfig["configDict"]["1"], "descriptions": descriptions,
+    $("#input-form").createForm({"config": getCurVerConfigFromLocalStorage(), "descriptions": descriptions,
         "onsave": function(){
             var config = $("#input-form").getData()[0][0];
             console.log(config);
