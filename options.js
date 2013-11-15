@@ -23,11 +23,11 @@ loadConfig(function(){
             saveConfig(config);
         }
     });
-    if(!localStorage["showAllbookmarksSites"])
+    if(!localStorage["showAllbookmarksSites"]){
         $(".siteUrl").each(function(){
             if(-1 == $(this).val().indexOf("instapaper"))
                 $(this).parent().parent().parent().hide();
         });
-    else
         console.log("showAllbookmarksSites is not set");
+    }
 });
