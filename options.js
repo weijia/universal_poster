@@ -144,7 +144,7 @@ var universalPosterConfig = [
 
 
 
-function setConfig(
+function setConfig(){}
 
 
 
