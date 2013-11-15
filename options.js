@@ -93,25 +93,14 @@ chrome.storage.sync.get("showPrivateFlag", function(items){
 });
 
 */
-var config = {
-    "storageSites": [{
-        "siteUrl": "siteUrl",
-            "username": "username",
-            "password": "password"
-    },{
-        "siteUrl": "siteUrl",
-            "username": "username",
-            "password": "password"
-    }],
-        "capturingUrls": ["http://base.yixun.com/json.php?mod=favor&act=add", "hello world"]
-};
 
 var descriptions = {
     "storageSites": "Bookmark Storage Site Configurations:",
-        "siteUrl": "Post URL for bookmark storage site:",
-        "username": "Username:",
-        "password": "Password:",
-    "capturingUrls": "URLs to capture:"
+    "siteUrl": "Post URL for bookmark storage site:",
+    "username": "Username:",
+    "password": "Password:",
+    "captureUrls": "URLs to capture:",
+    "siteConfigurations": "Site Configurations"
 };
 
 function showNoConfigWarning(){
@@ -125,48 +114,76 @@ function showNoConfigWarning(){
     notification.show();
 }
 
-var universalPosterConfig = [
-    function(){
-        chrome.storage.sync.get(["siteConfigurations"], function(items){
-            siteConfigurations = items["siteConfigurations"];
-            if(!siteConfigurations){
-                localStorage["siteConfigurations"] = [];
-                showNoConfigWarning();
-            }
-            else{
-                localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
-            }
-        });
-    },
-    function (){
+//The following is an example for config, it should be saved in chrome storage as is.
+var configObj = {"versionedConfig":
+    {
+        "curConfigVer": "1",
+        "configDict": {
+            "1": {},
+            "2": {}
+        }
     }
-];
+};
 
+var universalPosterConfigObj = {"versionedConfig":
+    {
+        "curConfigVer": "1",
+        "configDict": {
+            "1": {},
+            "2": {}
+        }
+    }
+};
 
-
-function setConfig(){}
-
-
+function showNotificationForSavingConfig(){
+    var status = $(".status", field)[0];
+    status.innerHTML = chrome.i18n.getMessage("optionSaved");//"Options Saved.";
+    setTimeout(function() {
+        status.innerHTML = "";
+    }, 750);
+}
 
 
 chrome.storage.sync.get(["siteConfigurations"], function(items){
     siteConfigurations = items["siteConfigurations"];
     if(!siteConfigurations){
-        localStorage["siteConfigurations"] = [];
-        console.log("You must first set sites you want to post to. Please open option page for this extension.");
-        // Create a simple text notification:
-        var notification = webkitNotifications.createNotification(
-            '',
-            chrome.i18n.getMessage("notificationWarningTitle"), //'Universal poster warning!',  // notification title
-            chrome.i18n.getMessage("notificationAccountWarning") //'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
-        );
-        notification.show();
+        localStorage["siteConfigurations"] = JSON.stringify([]);
+        showNoConfigWarning();
     }
     else{
         localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
+        
+        //Save config to versioned config if versioned config is not created yet.
+        chrome.storage.sync.get(["versionedConfig"], function(items){
+            versionedConfigInChromeSync = items["versionedConfig"];
+            //if(!versionedConfigInChromeSync){
+                savingUniversalPosterConfig = universalPosterConfigObj;
+                savingUniversalPosterConfig["versionedConfig"]["curConfigVer"] = "1";
+                savingUniversalPosterConfig["versionedConfig"]["configDict"] = {"1":{
+                        "captureUrls": ["http://base.yixun.com/json.php?mod=favor&act=add",
+                                    "https://www.facebook.com/plugins/like/connect",
+                                    "http://t.jd.com/product/followProduct.action"],
+                        "siteConfigurations": siteConfigurations
+                    }
+                };
+                //Save as versioned config
+                chrome.storage.sync.set(savingUniversalPosterConfig, function() {
+                    console.log(savingUniversalPosterConfig);
+                });
+            //}
+        });
     }
-    console.log(JSON.stringify(siteConfigurations));
-    localStorage["exportedConfigString"] = JSON.stringify(siteConfigurations);
-    $("#input-form").createForm({"config": siteConfigurations, "descriptions": descriptions});
-    console.log(JSON.stringify($("#input-form").getData()[0]));
+});
+
+chrome.storage.sync.get(["versionedConfig"], function(items){
+    var versionedConfig = items["versionedConfig"];
+    if(versionedConfig){
+        //console.log(JSON.stringify(siteConfigurations));
+        //localStorage["exportedConfigString"] = JSON.stringify(siteConfigurations);
+        $("#input-form").createForm({"config": versionedConfig["configDict"]["1"], "descriptions": descriptions});
+        localStorage["captureUrls"] = versionedConfig["configDict"]["1"]["captureUrls"];
+        localStorage["siteConfigurations"] = versionedConfig["configDict"]["1"]["siteConfigurations"];
+        //console.log(JSON.stringify($("#input-form").getData()[0]));
+        $("#input-form").click(function(){console.log(JSON.stringify($("#input-form").getData()[0]))});
+    }
 });

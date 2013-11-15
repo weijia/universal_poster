@@ -5,7 +5,7 @@
 
 
     function genStringInput(jqueryElem, strInfo) {
-        jqueryElem.html('<input value="' + strInfo + '"/>');
+        jqueryElem.html('<input value="' + strInfo + '" class="simple-input"/>');
     }
 
     function getDescription(descriptions, item) {
@@ -29,7 +29,8 @@
                     innerElem.append('<div class="attr-input"><label>' + descriptionText +
                         '</label><input class="'+attr+'" value="' + formInfo[attr] + '"/></div>');
                 } else {
-                    var newItem = $('<div><p><h1>' + getDescription(descriptions, attr) +
+                    //If the value is not simple string, create complex fields
+                    var newItem = $('<div class="'+attr+'"><p><h1>' + getDescription(descriptions, attr) +
                         '</h1></p><div class="content"></div></div>');
                     innerElem.append(newItem);
                     genForm($(".content", newItem), formInfo[attr], descriptions);
@@ -61,15 +62,20 @@
     }
     
     function getDataFromObjAttrNode(item){
+        var res = new Object();
         if(item.hasClass("attr-input")){
             var inputElem = $("input", item);
             //console.log(inputElem.val());
             var attr = inputElem.attr("class");
             var val = inputElem.val()
-            var res = new Object();
             res[attr] = val;
-            return res;
         }
+        else{
+            //Child node is a complex node
+            var childPaneRootDiv = $(item.children('div')[0]);
+            res[item.attr("class")] = getDataFromItem($(childPaneRootDiv.children('div')[0]));
+        }
+        return res;
     }
     
     function getDataFromItem(item){
@@ -84,6 +90,9 @@
             return res;
         }else if(item.hasClass("list-item")){
             var onlyItem = item.children('div')[0];
+            if(!onlyItem){
+                return $('input', item).val();
+            }
             return getDataFromItem($(onlyItem));
         }else{
             var res = [];
