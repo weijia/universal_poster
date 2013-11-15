@@ -92,51 +92,61 @@ var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
 //Sniffer callback will be used to determine if the item matches the criteria
 var snifferEngineList = [githubSniffer, stackoverflowSniffer];
 
-chrome.webRequest.onBeforeRequest.addListener(
-    function(info) {
-        var submitPackage = {};
-        console.log("url intercepted: " + info.url, info);
-        var matchedEngine = false;
-        for(var matchUrl in snifferEngineDict){
-            if(snifferEngineDict.hasOwnProperty(matchUrl))  // Ref: http://stackoverflow.com/questions/890807/iterate-over-a-javascript-associative-array-in-sorted-order
-            {
-                if(-1 != info.url.indexOf(matchUrl)) matchedEngine = snifferEngineDict[matchUrl];
-            }
-        }
-        for(var index=0;index<snifferEngineList.length;index++){
-            if(snifferEngineList[index].matchUrl(info)) matchedEngine = snifferEngineList[index];
-        }
-        //Customizable URL matching, will use common sniffer for all customized URL capturing
-        var captureUrlList = getCaptureUrlList();
-        //console.log(captureUrlList);
-        for(var index=0;index<captureUrlList.length;index++){
-            if(-1 != info.url.indexOf(captureUrlList[index])) matchedEngine = commonSniffer;
-        }
-        
-        if(matchedEngine){
-            var postInfo = matchedEngine.onRequest(info, startPostInfoProcess);
-            if(postInfo) startPostInfoProcess(postInfo);
-        }
-    },
-    // filters
-    {
-        urls: [
+
+var filterForPredefinedUrlPatterns = [
             //"<all_urls>"
             "*://cang.baidu.com/*",
             "*://www.instapaper.com/",
             "*://github.com/*/star",
-            "*://stackoverflow.com/posts/*",
-            "*://my.yihaodian.com/member/myNewCollection/*",
-            "*://my.1mall.com/member/myNewCollection/*",
-            "*://base.yixun.com/json.php*",
-            "*://www.facebook.com/plugins/like/connect",
-            "*://t.jd.com/product/followProduct.action*"
-            ]
-    },
-    ["requestBody"]
-);
+            "*://stackoverflow.com/posts/*"];
+
+function getFilters(){
+    var filters = filterForPredefinedUrlPatterns;
+    for()
+    filters.push();
+}
 
 
+function onConfigLoaded(){
+    chrome.webRequest.onBeforeRequest.addListener(
+        function(info) {
+            var submitPackage = {};
+            console.log("url intercepted: " + info.url, info);
+            var matchedEngine = false;
+            for(var matchUrl in snifferEngineDict){
+                if(snifferEngineDict.hasOwnProperty(matchUrl))  // Ref: http://stackoverflow.com/questions/890807/iterate-over-a-javascript-associative-array-in-sorted-order
+                {
+                    if(-1 != info.url.indexOf(matchUrl)) matchedEngine = snifferEngineDict[matchUrl];
+                }
+            }
+            for(var index=0;index<snifferEngineList.length;index++){
+                if(snifferEngineList[index].matchUrl(info)) matchedEngine = snifferEngineList[index];
+            }
+            //Customizable URL matching, will use common sniffer for all customized URL capturing
+            var captureUrlList = getCaptureUrlList();
+            //console.log(captureUrlList);
+            for(var index=0;index<captureUrlList.length;index++){
+                if(-1 != info.url.indexOf(captureUrlList[index])) matchedEngine = commonSniffer;
+            }
+            
+            if(matchedEngine){
+                var postInfo = matchedEngine.onRequest(info, startPostInfoProcess);
+                if(postInfo) startPostInfoProcess(postInfo);
+            }
+        },
+        // filters
+        {
+            urls: 
+                "*://my.yihaodian.com/member/myNewCollection/*",
+                "*://my.1mall.com/member/myNewCollection/*",
+                "*://base.yixun.com/json.php*",
+                "*://www.facebook.com/plugins/like/connect",
+                "*://t.jd.com/product/followProduct.action*"
+                ]
+        },
+        ["requestBody"]
+    );
+}
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
