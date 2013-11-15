@@ -143,6 +143,16 @@ function showNotificationForSavingConfig(){
     }, 750);
 }
 
+function saveConfig(config){
+    var savingUniversalPosterConfig = universalPosterConfigObj;
+    savingUniversalPosterConfig["versionedConfig"]["curConfigVer"] = "1";
+    savingUniversalPosterConfig["versionedConfig"]["configDict"] = {"1": config};
+    //Save as versioned config
+    chrome.storage.sync.set(savingUniversalPosterConfig, function() {
+        console.log(savingUniversalPosterConfig);
+    });
+}
+
 
 chrome.storage.sync.get(["siteConfigurations"], function(items){
     siteConfigurations = items["siteConfigurations"];
@@ -157,33 +167,33 @@ chrome.storage.sync.get(["siteConfigurations"], function(items){
         chrome.storage.sync.get(["versionedConfig"], function(items){
             versionedConfigInChromeSync = items["versionedConfig"];
             //if(!versionedConfigInChromeSync){
-                savingUniversalPosterConfig = universalPosterConfigObj;
-                savingUniversalPosterConfig["versionedConfig"]["curConfigVer"] = "1";
-                savingUniversalPosterConfig["versionedConfig"]["configDict"] = {"1":{
-                        "captureUrls": ["http://base.yixun.com/json.php?mod=favor&act=add",
+                saveConfig({"captureUrls": ["http://base.yixun.com/json.php?mod=favor&act=add",
                                     "https://www.facebook.com/plugins/like/connect",
                                     "http://t.jd.com/product/followProduct.action"],
-                        "siteConfigurations": siteConfigurations
-                    }
-                };
-                //Save as versioned config
-                chrome.storage.sync.set(savingUniversalPosterConfig, function() {
-                    console.log(savingUniversalPosterConfig);
-                });
+                        "siteConfigurations": siteConfigurations});
             //}
         });
     }
 });
 
+
+
 chrome.storage.sync.get(["versionedConfig"], function(items){
     var versionedConfig = items["versionedConfig"];
     if(versionedConfig){
-        //console.log(JSON.stringify(siteConfigurations));
+        console.log(versionedConfig["configDict"]["1"]);
         //localStorage["exportedConfigString"] = JSON.stringify(siteConfigurations);
-        $("#input-form").createForm({"config": versionedConfig["configDict"]["1"], "descriptions": descriptions});
+        $("#input-form").createForm({"config": versionedConfig["configDict"]["1"], "descriptions": descriptions,
+            "onsave": function(){
+                var config = $("#input-form").getData()[0][0];
+                console.log(config);
+                saveConfig(config);
+            }
+        });
         localStorage["captureUrls"] = versionedConfig["configDict"]["1"]["captureUrls"];
         localStorage["siteConfigurations"] = versionedConfig["configDict"]["1"]["siteConfigurations"];
-        //console.log(JSON.stringify($("#input-form").getData()[0]));
-        $("#input-form").click(function(){console.log(JSON.stringify($("#input-form").getData()[0]))});
+        console.log(JSON.stringify(versionedConfig));
+        localStorage["versionedConfigLocalString1"] = JSON.stringify(versionedConfig);
+        //$("#input-form").click(function(){console.log(JSON.stringify())});
     }
 });

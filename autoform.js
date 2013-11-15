@@ -104,21 +104,45 @@
     }
 
     $.fn.extend({
-        createForm: function (content) {
+        createForm: function (options) {
             this.each(function () {
                 //$(this).html("bye");
                 //genForm($(this), config["storageSites"]);
-                genForm($(this), content["config"], content["descriptions"]);
-                
+                genForm($(this), options["config"], options["descriptions"]);
+                //////////////////////////////
                 //Create add new item button?
+                //////////////////////////////
                 $(".list-group").prepend('<button class="add-item">Add</button>');
-                $("button").button().click(function(){
+                $("button.add-item").button().click(function(){
                     console.log($(this));
                     console.log(this);
                     console.log($(this).parents(".list-group"));
                     //$(this).parents(".list-group").after(""
                     var newItem = $(".list-item:first", $(this).parents(".list-group")).clone()
+                    $("input", newItem).keypress(function(){
+                        if(options["onchange"]) options["onchange"]();
+                        else $("#save").removeAttr("disabled");
+                    });
+                    $("input", newItem).val("");
                     $(this).after(newItem);
+                });
+                //////////////////////////////
+                //Add remove buttons
+                //////////////////////////////
+                $(".list-item", $(this)).prepend('<button class="remove">Remove</button>');
+                $("button.remove").click(function(){
+                    if(0 != $(this).parent().siblings('.list-item').length){
+                        $(this).parent().remove();
+                        $("#save").removeAttr("disabled");
+                    }
+                });
+                //////////////////////////////
+                //Save button
+                //////////////////////////////
+                $(this).append('<button id="save" disabled="true">Save</button>')
+                $("#save").click(function(){
+                    console.log("save clicked");
+                    if(options["onsave"]) options["onsave"]();
                 });
             });
         },
