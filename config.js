@@ -106,14 +106,15 @@ function loadLegacyConfig(callbacks) {
     });
 }
 
-var defaultSiteConfigurations = {
+var defaultSiteConfigurations = [
     {
         "password": "",
             "siteUrl": "https://www.instapaper.com/api/add?username={username}&password={password}&url={url}&title={description}",
             "username": ""
     }, {
         "password": "",
-            "siteUrl": "https://mycampus.duapp.com/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}",
+            "siteUrl":
+            "https://mycampus.duapp.com/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}",
             "username": ""
     }, {
         "password": "",
@@ -125,14 +126,15 @@ var defaultSiteConfigurations = {
             "username": ""
     }, {
         "password": "",
-            "siteUrl": "https://allbookmarks.duapp.com/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}",
+            "siteUrl":
+            "https://allbookmarks.duapp.com/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}",
             "username": ""
     }, {
-        "password": "123456rich",
+        "password": "",
             "siteUrl": "http://127.0.0.1:8210/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}",
             "username": ""
     }
-};
+];
 var defaultCaptureUrls = ["http://base.yixun.com/json.php?mod=favor&act=add",
     "https://www.facebook.com/plugins/like/connect",
     "http://t.jd.com/product/followProduct.action"];
