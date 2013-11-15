@@ -126,19 +126,29 @@ function showNoConfigWarning(){
 }
 
 var universalPosterConfig = [
-    function(){
-        chrome.storage.sync.get(["siteConfigurations"], function(items){
-            siteConfigurations = items["siteConfigurations"];
-            if(!siteConfigurations){
-                localStorage["siteConfigurations"] = [];
-                showNoConfigWarning();
-            }
-            else{
-                localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
-            }
-        });
+    //version 0
+    {
+        loadConfig: function (){
+            chrome.storage.sync.get(["siteConfigurations"], function(items){
+                siteConfigurations = items["siteConfigurations"];
+                if(!siteConfigurations){
+                    localStorage["siteConfigurations"] = [];
+                    showNoConfigWarning();
+                }
+                else{
+                    localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
+                }
+            });
+        },
+        loadPreviousConfig: function(){
+        }
     },
-    function (){
+    //version 1
+    {
+        loadConfig: function (){
+        },
+        loadPreviousConfig: function(){
+        }
     }
 ];
 
