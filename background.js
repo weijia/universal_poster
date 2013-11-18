@@ -33,6 +33,8 @@ var startPostInfoProcess = function(postInfo) {
     for(var index=0; index<siteConfigurations.length; index++){
         //work arround for empty url setting
         if(!siteConfigurations[index].siteUrl) continue;
+        if(!siteConfigurations[index].username) continue;
+        if(!siteConfigurations[index].password) continue;
         var username = siteConfigurations[index].username;
         var password = siteConfigurations[index].password;
         var postUrl = siteConfigurations[index].siteUrl.replace("{username}", username);
