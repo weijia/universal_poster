@@ -130,7 +130,7 @@
                 //Add remove buttons
                 //////////////////////////////
                 $(".list-item", $(this)).prepend('<button class="remove">Remove</button>');
-                $("button.remove").click(function(){
+                $("button.remove").button().click(function(){
                     if(0 != $(this).parent().siblings('.list-item').length){
                         $(this).parent().remove();
                         $("#save").removeAttr("disabled");
