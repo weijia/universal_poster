@@ -20,6 +20,8 @@ loadConfig(function(){
         "onsave": function(){
             var config = $("#input-form").getData()[0][0];
             console.log(config);
+            var bkg = chrome.extension.getBackgroundPage();
+            bkg.location.reload()
             saveConfig(config);
         }
     });
