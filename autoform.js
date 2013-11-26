@@ -140,7 +140,7 @@
                 //Save button
                 //////////////////////////////
                 $(this).append('<button id="save" disabled="true">Save</button>')
-                $("#save").click(function(){
+                $("#save").button().click(function(){
                     console.log("save clicked");
                     if(options["onsave"]) options["onsave"]();
                 });
