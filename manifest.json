@@ -24,7 +24,7 @@
   "background": {
     "scripts": ["poster.js", "cang_sniffer.js", "instapaper_sniffer.js", "github_sniffer.js",
         "stackoverflow_sniffer.js", "yihaodian_sniffer.js",
-        "common_sniffer.js", "config.js",
+        "common_sniffer.js", "config.js", "web_dynamic_config_loader.js", "local_storage_config.js",
         "background.js"
         ]
   },

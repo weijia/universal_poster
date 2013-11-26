@@ -33,5 +33,4 @@ loadConfig(function(){
         console.log("showAllbookmarksSites is not set");
     }
     $(".siteUrl").attr("disabled", true);
-    $("#save").removeAttr("disabled");
 });

@@ -139,7 +139,7 @@
                 //////////////////////////////
                 //Save button
                 //////////////////////////////
-                $(this).append('<button id="save" disabled="true">Save</button>')
+                $(this).append('<button id="save">Save</button>')
                 $("#save").button().click(function(){
                     console.log("save clicked");
                     if(options["onsave"]) options["onsave"]();

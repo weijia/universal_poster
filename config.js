@@ -9,7 +9,7 @@ var configObj = {
     }
 };
 
-var universalPosterConfigObj = {
+var templateConfigStructure = {
     "versionedConfig": {
         "curConfigVer": "v1",
             "configDict": {
@@ -28,30 +28,6 @@ function showNoConfigWarning() {
     chrome.i18n.getMessage("notificationAccountWarning") //'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
     );
     notification.show();
-}
-
-function getCaptureUrls(){
-    return JSON.parse(localStorage["captureUrls"]);
-}
-
-function setCaptureUrls(captureUrls){
-    localStorage["captureUrls"] = JSON.stringify(captureUrls);
-}
-
-function getSiteConfigurations(){
-    return JSON.parse(localStorage["siteConfigurations"]);
-}
-
-function setSiteConfigurations(siteConfigurations){
-    localStorage["siteConfigurations"] = JSON.stringify(siteConfigurations);
-}
-
-function getCurVerConfigFromLocalStorage(){
-    return JSON.parse(localStorage["curVerConfigFromLocalStorage"]);
-}
-
-function setCurVerConfigFromLocalStorage(curVerConfigFromLocalStorage){
-    localStorage["curVerConfigFromLocalStorage"] = JSON.stringify(curVerConfigFromLocalStorage)
 }
 
 function startLoadConfig(callbacks) {
@@ -78,7 +54,7 @@ function startLoadConfig(callbacks) {
 
 
 function saveConfig(config, callback) {
-    var savingUniversalPosterConfig = universalPosterConfigObj;
+    var savingUniversalPosterConfig = templateConfigStructure;
     savingUniversalPosterConfig["versionedConfig"]["curConfigVer"] = "v1";
     savingUniversalPosterConfig["versionedConfig"]["configDict"] = {
         "v1": config
@@ -110,9 +86,7 @@ function loadLegacyConfig(callbacks) {
                 versionedConfigInChromeSync = items["versionedConfig"];
                 //if(!versionedConfigInChromeSync){
                 saveConfig({
-                    "captureUrls": ["http://base.yixun.com/json.php?mod=favor&act=add",
-                        "https://www.facebook.com/plugins/like/connect",
-                        "http://t.jd.com/product/followProduct.action"],
+                    "captureUrls": defaultCaptureUrls,
                         "siteConfigurations": siteConfigurations
                 }, onSuccess);
                 //}
@@ -150,9 +124,6 @@ var defaultSiteConfigurations = [
             "username": ""
     }
 ];
-var defaultCaptureUrls = ["http://base.yixun.com/json.php?mod=favor&act=add",
-    "https://www.facebook.com/plugins/like/connect",
-    "http://t.jd.com/product/followProduct.action"];
     
     
 //TODO: Rewrite the codes use jquery defer

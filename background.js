@@ -132,6 +132,7 @@ function onConfigLoaded(){
 }
 
 loadConfig(onConfigLoaded);
+loadWebDynamicConfig();
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
