@@ -23,6 +23,7 @@ loadConfig(function(){
             var bkg = chrome.extension.getBackgroundPage();
             bkg.location.reload()
             saveConfig(config);
+            showNotificationForSavingConfig();
         }
     });
     if(!localStorage["showAllbookmarksSites"]){
@@ -33,4 +34,6 @@ loadConfig(function(){
         console.log("showAllbookmarksSites is not set");
     }
     $(".siteUrl").attr("disabled", true);
+    $(".captureUrls button.add-item").parent().append('<button id="update-capture-urls">Update</button>');
+    $("#update-capture-urls").button().click(function(){loadWebDynamicConfig();});
 });

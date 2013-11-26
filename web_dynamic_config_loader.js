@@ -28,9 +28,9 @@ function saveWebDynamicConfig(data){
     saveConfig({
         "captureUrls": capturingUrls,
             "siteConfigurations": getSiteConfigurations()
-        });
+        }, function(){location.reload();});
 }
 
-function loadWebDynamicConfig() {
+function loadWebDynamicConfig(onSuccess) {
     postUrlWithCallback("https://raw.github.com/weijia/universal_poster/master/default_capturing_url.js", saveWebDynamicConfig)
 };
