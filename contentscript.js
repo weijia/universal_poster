@@ -6,7 +6,7 @@ function handleInitForNetEaseScript(event){
     console.log(event);
     // To fully support feedly (even keyboard short cut is used to set item as saved.
     // saving URL must be captured and then send msg to content page to check the entry id and content info.
-    var isFeedly = (-1 != document.URL.indexOf('cloud.feedly.com'));
+    var isFeedly = (-1 != document.URL.indexOf('feedly.com'));
     if(isFeedly){
         var url = null;
         var text = null;
