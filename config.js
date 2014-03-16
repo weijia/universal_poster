@@ -30,6 +30,14 @@ function showNoConfigWarning() {
     notification.show();
 }
 
+function saveConfigToLocalStorage(configContentDict)//{"captureUrls":[], "siteConfigurations":{}}
+{
+	setCurVerConfigFromLocalStorage(configContentDict);
+	setCaptureUrls(configContentDict["captureUrls"]);
+	setSiteConfigurations(configContentDict["siteConfigurations"]);
+}			
+
+
 function startLoadConfig(callbacks) {
     var onSuccess = callbacks["success"];
     var onFail = callbacks["fail"];
@@ -37,9 +45,7 @@ function startLoadConfig(callbacks) {
     chrome.storage.sync.get(["versionedConfig"], function (items) {
         var versionedConfig = items["versionedConfig"];
         if (versionedConfig) {
-            setCurVerConfigFromLocalStorage(versionedConfig["configDict"]["v1"]);
-            setCaptureUrls(versionedConfig["configDict"]["v1"]["captureUrls"]);
-            setSiteConfigurations(versionedConfig["configDict"]["v1"]["siteConfigurations"]);
+			saveConfigToLocalStorage(versionedConfig["configDict"]["v1"]);
             console.log(JSON.stringify(versionedConfig));
             localStorage[chrome.app.getDetails().version] = JSON.stringify(versionedConfig);
             if(onSuccess) onSuccess();
@@ -137,10 +143,12 @@ function loadConfig(successCallback, failCallback) {
             loadLegacyConfig({
                 "success": successCallback,
                 "fail": function () {
-                    saveConfig({
+					var defaultConfigContent = {
                         "captureUrls": defaultCaptureUrls,
                             "siteConfigurations": defaultSiteConfigurations
-                        }, successCallback);
+                        };
+                    saveConfig(defaultConfigContent, successCallback);
+					saveConfigToLocalStorage(defaultConfigContent);
                 }
             });
         }
