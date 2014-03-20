@@ -14,9 +14,14 @@ function handleInitForNetEaseScript(event){
         console.log("On feedly");
         if($(event.target).hasClass("wikiWidgetSave")){
             console.log("wikiWidgetSave");
-            console.log($($("a", $(event.target).parent())[0]).attr("data-title"));
-            url = $($("a", $(event.target).parent())[0]).attr("data-url");
-            text = $($("a", $(event.target).parent())[0]).attr("data-title");
+            var currentTarget = $(event.target);
+            var entryId = currentTarget.attr("data-toggleentryid");
+            //var targetParent = $(event.target).parents('.u100Frame');
+            //console.log(targetParent);
+            var itemDiv = $('div[data-entryid="'+entryId+'"]');
+            console.log(itemDiv.attr("data-title"));
+            url = itemDiv.attr("data-alternate-link");
+            text = itemDiv.attr("data-title");
             saved = true;
         }
         else if($(event.target).hasClass("quickListHandle")){
