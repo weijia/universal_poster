@@ -1,10 +1,10 @@
 var descriptions = {
     "storageSites": "Bookmark Storage Site Configurations:",
-    "siteUrl": "Post URL for bookmark storage site:",
-    "username": "Username:",
-    "password": "Password:",
-    "captureUrls": "URLs to capture:",
-    "siteConfigurations": "Bookmark Site Configurations"
+    "siteUrl": "3. Post URL for bookmark storage site:",
+    "username": "1. Username:",
+    "password": "2. Password:",
+    "captureUrls": "2. URLs to capture:",
+    "siteConfigurations": "1. Bookmark Site Configurations"
 };
 
 function showNotificationForSavingConfig(){

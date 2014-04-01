@@ -12,7 +12,11 @@
         if (descriptions[item]) return descriptions[item] + " ";
         else return item + " ";
     }
-
+    
+    function getOrder(descriptions, item) {
+        if (descriptions[item]) return descriptions[item][0];
+        else return "0";
+    }
 
     function genObjInput(jqueryElem, formInfo, descriptions) {
         //alert(formInfo);
@@ -25,12 +29,15 @@
             if (formInfo.hasOwnProperty(attr)) {
                 if (isStr(formInfo[attr])) {
                     //{"good":"bad"}, attr="good";formInfo[attr]="bad";
-                    descriptionText = getDescription(descriptions, attr);
-                    innerElem.append('<div class="attr-input"><label>' + descriptionText +
+                    var descriptionText = getDescription(descriptions, attr);
+                    var order = getOrder(descriptions, attr);
+                    innerElem.append('<div class="attr-input" order="'+order+'"><label>' + descriptionText +
                         '</label><input class="'+attr+'" value="' + formInfo[attr] + '"/></div>');
                 } else {
                     //If the value is not simple string, create complex fields
-                    var newItem = $('<div class="'+attr+'"><p><h1>' + getDescription(descriptions, attr) +
+                    var descriptionText = getDescription(descriptions, attr);
+                    var order = getOrder(descriptions, attr);
+                    var newItem = $('<div class="'+attr+'" order="'+order+'"><p><h1>' + descriptionText +
                         '</h1></p><div class="content"></div></div>');
                     innerElem.append(newItem);
                     genForm($(".content", newItem), formInfo[attr], descriptions);
@@ -109,6 +116,27 @@
                 //$(this).html("bye");
                 //genForm($(this), config["storageSites"]);
                 genForm($(this), options["config"], options["descriptions"]);
+                //////////////////////////////
+                //Sort items
+                //////////////////////////////
+                var objAttrs = $(".obj-attrs", $(this));
+                $.each(objAttrs, function(index, parent){
+                    var items = $(parent).children().remove();
+                    //$.each(items, function(index, item) {
+                    //    console.log(item);
+                    //    $(item).appendTo($(parent));
+                    //});
+                    
+                    var cnt = 1;
+                    while(cnt<100){
+                        //var filtered = $(items).filter(":contains('"+cnt+".')");
+                        var filtered = $(items).filter("[order="+cnt+"]");
+                        if(filtered.length==0) break;
+                        $(parent).append($(filtered));
+                        cnt += 1;
+                    }
+                    
+                });
                 //////////////////////////////
                 //Create add new item button?
                 //////////////////////////////
