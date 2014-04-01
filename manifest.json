@@ -11,8 +11,8 @@
     "tabs"
   ],
   "icons": {
-    "48" : "sample-48.png",
-    "128" : "sample-128.png"
+    "48" : "bookmark-48.png",
+    "128" : "bookmark-128.png"
   },
   "content_scripts": [
     {
