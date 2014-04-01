@@ -4,7 +4,7 @@ var descriptions = {
     "username": "Username:",
     "password": "Password:",
     "captureUrls": "URLs to capture:",
-    "siteConfigurations": "Site Configurations"
+    "siteConfigurations": "Bookmark Site Configurations"
 };
 
 function showNotificationForSavingConfig(){
@@ -28,12 +28,12 @@ loadConfig(function(){
     });
     if(!localStorage["showAllbookmarksSites"]){
         $(".siteUrl").each(function(){
-            if(-1 == $(this).val().indexOf("instapaper"))
+            if((-1 == $(this).val().indexOf("instapaper"))&&(-1 == $(this).val().indexOf("tag4u.sinaapp.com")))
                 $(this).parent().parent().parent().hide();
         });
         console.log("showAllbookmarksSites is not set");
     }
     $(".siteUrl").attr("disabled", true);
-    $(".captureUrls button.add-item").parent().append('<button id="update-capture-urls">Update</button>');
+    $(".captureUrls button.add-item").parent().append('<button id="update-capture-urls">Update capture pattern from web</button>');
     $("#update-capture-urls").button().click(function(){loadWebDynamicConfig();});
 });
