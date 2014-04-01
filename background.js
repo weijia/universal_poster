@@ -4,37 +4,23 @@
 
 
 function notifyPost(postInfo){
-    // Note: There's no need to call webkitNotifications.checkPermission().
-    // Extensions that declare the notifications permission are always
-    // allowed create notifications.
-
-    // Create a simple text notification:
-    var notification = webkitNotifications.createNotification(
-      '',
-      chrome.i18n.getMessage("notificationPostingTitle"),//'Universal poster: Posting!',  // notification title
-      postInfo.postingUrl  // notification body text
+    showMsg(
+        chrome.i18n.getMessage("notificationPostingTitle"),//'Universal poster: Posting!',  // notification title
+        postInfo.postingUrl  // notification body text
     );
-    /*
-    // Or create an HTML notification:
-    var notification = webkitNotifications.createHTMLNotification(
-      'notification.html'  // html url - can be relative
-    );*/
-
-    // Then show the notification.
-    notification.show();
-    setTimeout(function(){
-      notification.cancel();
-    }, 3000);
 }
 
 var startPostInfoProcess = function(postInfo) {
     console.log(postInfo);
     var siteConfigurations = getSiteConfigurations();
+    var isPostDone = false;
     for(var index=0; index<siteConfigurations.length; index++){
         //work arround for empty url setting
         if(!siteConfigurations[index].siteUrl) continue;
         if(!siteConfigurations[index].username) continue;
         if(!siteConfigurations[index].password) continue;
+        
+        isPostDone = true;
         var username = siteConfigurations[index].username;
         var password = siteConfigurations[index].password;
         var postUrl = siteConfigurations[index].siteUrl.replace("{username}", username);
@@ -50,8 +36,8 @@ var startPostInfoProcess = function(postInfo) {
             //console.log("post result:", data);
         });
     }
-
-    notifyPost(postInfo);
+    if(isPostDone) notifyPost(postInfo);
+    else showWarningTranslated("notificationWarningTitle", "notificationAccountWarningWhenUrlMatches");
     
 }
 
@@ -132,7 +118,6 @@ function onConfigLoaded(){
 }
 
 loadConfig(onConfigLoaded);
-//loadWebDynamicConfig();
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {

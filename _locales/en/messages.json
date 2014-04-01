@@ -8,6 +8,9 @@
     "notificationAccountWarning":{
         "message": "You must first set sites you want to post to. Please open option page for this extension."
     },
+    "notificationAccountWarningWhenUrlMatches":{
+        "message": "Star action detected, but didn't set your account info in settings. Please open option page for this extension."
+    },
     "notificationPostingTitle":{
         "message": "Universal poster: Posting!"
     },

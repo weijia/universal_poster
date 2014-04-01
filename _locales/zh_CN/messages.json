@@ -7,6 +7,9 @@
     },
     "notificationAccountWarning":{
         "message": "您必须先在本插件设置中设置好收藏到instapaper等的账号"
+    },    
+    "notificationAccountWarningWhenUrlMatches":{
+        "message": "检测到收藏链接，但是未设置收藏账户，您必须先在本插件“设置”中设置好收藏到instapaper等的账号"
     },
     "notificationPostingTitle":{
         "message": "提示，正在收藏以下链接"

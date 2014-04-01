@@ -1,8 +1,8 @@
 {
   "name": "__MSG_extName__",
-  "version": "3.2.13",
+  "version": "3.2.15",
   "manifest_version": 2,
-  "description": "Post every stared thing to instapaper and BAE backend",
+  "description": "Post every stared thing to instapaper and SAE backend",
   "permissions": [
     "*://*/",
     "webRequest",
@@ -23,7 +23,7 @@
   "options_page": "options.html",
   "background": {
     "scripts": ["poster.js", "cang_sniffer.js", "instapaper_sniffer.js", "github_sniffer.js",
-        "stackoverflow_sniffer.js", "yihaodian_sniffer.js",
+        "stackoverflow_sniffer.js", "yihaodian_sniffer.js", "notification.js",
         "common_sniffer.js", "config.js", "web_dynamic_config_loader.js", "local_storage_config.js",
         "background.js"
         ]
