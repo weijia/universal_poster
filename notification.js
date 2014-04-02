@@ -1,4 +1,5 @@
 function showWarningTranslated(title, content) {
+    
     console.log("You must first set sites you want to post to. Please open option page for this extension.");
     // Create a simple text notification:
     var notification = webkitNotifications.createNotification(
@@ -7,6 +8,8 @@ function showWarningTranslated(title, content) {
     chrome.i18n.getMessage(content) //'You must first set sites you want to post to. Please open option page for this extension.'  // notification body text
     );
     notification.show();
+    /*var notification = chrome.notifications.create('warning', {type: "basic", title:chrome.i18n.getMessage(title),
+        message:chrome.i18n.getMessage(content)}, function(){});*/
 }
 
 

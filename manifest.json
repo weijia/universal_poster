@@ -23,7 +23,7 @@
   "options_page": "options.html",
   "background": {
     "scripts": ["poster.js", "cang_sniffer.js", "instapaper_sniffer.js", "github_sniffer.js",
-        "stackoverflow_sniffer.js", "yihaodian_sniffer.js", "notification.js",
+        "stackoverflow_sniffer.js", "yihaodian_sniffer.js", "notification.js", "default_capturing_url.js",
         "common_sniffer.js", "config.js", "web_dynamic_config_loader.js", "local_storage_config.js",
         "background.js"
         ]
