@@ -1,5 +1,6 @@
 var doubanSnifferUrlPattern = "/interest";
 var doubanSniffer = {
+    sitePattern: "*://movie.douban.com/j/subject/*",
     name: "douban.com",
     onRequest: function(info) {
         var starUrl = info.url;

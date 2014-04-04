@@ -55,11 +55,12 @@ var snifferEngineList = [githubSniffer, stackoverflowSniffer, doubanSniffer];
 
 var filterForPredefinedUrlPatterns = [
             //"<all_urls>"
-            "*://cang.baidu.com/*",
-            "*://www.instapaper.com/",
-            "*://github.com/*/star",
-            "*://stackoverflow.com/posts/*",
-            "*://movie.douban.com/j/subject/*"];
+            //"*://cang.baidu.com/*",
+            //"*://www.instapaper.com/",
+            //"*://github.com/*/star",
+            //"*://stackoverflow.com/posts/*",
+            //"*://movie.douban.com/j/subject/*"
+            ];
 
 function getFilters(){
     var filters = filterForPredefinedUrlPatterns;
@@ -67,7 +68,10 @@ function getFilters(){
     for(var index=0;index<captureUrls.length;index++){
         filters.push(captureUrls[index]+"*");
     }
-    console.log(filters);
+    for(var index=0;index<snifferEngineList.length;index++){
+        filters.push(snifferEngineList[index].sitePattern);
+    }
+    console.log("filters: "+filters);
     return filters;
 }
 
