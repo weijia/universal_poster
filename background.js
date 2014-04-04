@@ -50,7 +50,7 @@ var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
 };
 
 //Sniffer callback will be used to determine if the item matches the criteria
-var snifferEngineList = [githubSniffer, stackoverflowSniffer];
+var snifferEngineList = [githubSniffer, stackoverflowSniffer, doubanSniffer];
 
 
 var filterForPredefinedUrlPatterns = [
@@ -58,7 +58,8 @@ var filterForPredefinedUrlPatterns = [
             "*://cang.baidu.com/*",
             "*://www.instapaper.com/",
             "*://github.com/*/star",
-            "*://stackoverflow.com/posts/*"];
+            "*://stackoverflow.com/posts/*",
+            "*://movie.douban.com/j/subject/*"];
 
 function getFilters(){
     var filters = filterForPredefinedUrlPatterns;
