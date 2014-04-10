@@ -7,5 +7,6 @@ var defaultCaptureUrls = ["http://favorite.taobao.com/popup/add_collection.htm",
 "http://customer.dangdang.com/wishlist/remote_addtofavorlist.aspx",
 "https://code.google.com/hosting/stars.do",
 "http://v.youku.com/QVideo/~ajax/addFav?",
-"http://i.youku.com/u/subToUpdates?"
+"http://i.youku.com/u/subToUpdates?",
+"http://www.douban.com/j/like_tags"
 ];
