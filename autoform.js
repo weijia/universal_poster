@@ -31,8 +31,15 @@
                     //{"good":"bad"}, attr="good";formInfo[attr]="bad";
                     var descriptionText = getDescription(descriptions, attr);
                     var order = getOrder(descriptions, attr);
-                    innerElem.append('<div class="attr-input" order="'+order+'"><label>' + descriptionText +
-                        '</label><input class="'+attr+'" value="' + formInfo[attr] + '"/></div>');
+                    var lowerCaseDescription = descriptionText.toLowerCase();
+                    if(-1!=lowerCaseDescription.indexOf("password")){
+                        innerElem.append('<div class="attr-input" order="'+order+'"><label>' + descriptionText +
+                            '</label><input type="password" class="'+attr+'" value="' + formInfo[attr] + '"/></div>');
+                    }else{   
+                        innerElem.append('<div class="attr-input" order="'+order+'"><label>' + descriptionText +
+                            '</label><input class="'+attr+'" value="' + formInfo[attr] + '"/></div>');
+                    }
+                    
                 } else {
                     //If the value is not simple string, create complex fields
                     var descriptionText = getDescription(descriptions, attr);
