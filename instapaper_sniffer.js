@@ -1,4 +1,5 @@
 var instapaperSniffer = {
+    sitePattern: "*://www.instapaper.com/",
     name: "instapaper.com",
     onRequest: function(info) {
 

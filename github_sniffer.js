@@ -1,4 +1,5 @@
 var githubSniffer = {
+    sitePattern: "*://github.com/*/star*",
     name: "github.com",
     onRequest: function(info) {
         var starUrl = info.url;

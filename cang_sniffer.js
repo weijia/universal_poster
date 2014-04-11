@@ -1,4 +1,5 @@
 var cangSniffer = {
+    sitePattern: "*://cang.baidu.com/*",
     name: "cang.baidu.com",
     onRequest: function(info) {
         if(info.requestBody)

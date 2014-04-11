@@ -1,4 +1,5 @@
 var stackoverflowSniffer = {
+    sitePattern: "*://stackoverflow.com/posts/*",
     name: "stackoverflow.com",
     onRequest: function(info, callback) {
         var starUrl = info.url;
