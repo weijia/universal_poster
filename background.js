@@ -55,11 +55,11 @@ var snifferEngineList = [githubSniffer, stackoverflowSniffer, doubanSniffer];
 
 var filterForPredefinedUrlPatterns = [
             //"<all_urls>"
-            //"*://cang.baidu.com/*",
-            //"*://www.instapaper.com/",
-            //"*://github.com/*/star",
-            //"*://stackoverflow.com/posts/*",
-            //"*://movie.douban.com/j/subject/*"
+            "*://cang.baidu.com/*",
+            "*://www.instapaper.com/",
+            "*://github.com/*/star",
+            "*://stackoverflow.com/posts/*",
+            "*://movie.douban.com/j/subject/*"
             ];
 
 function getFilters(){
