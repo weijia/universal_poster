@@ -9,5 +9,6 @@ var defaultCaptureUrls = ["http://favorite.taobao.com/popup/add_collection.htm",
 "http://v.youku.com/QVideo/~ajax/addFav?",
 "http://i.youku.com/u/subToUpdates?",
 "http://wenzhang.baidu.com/fav/add",
-"http://www.douban.com/j/like_tags"
+"http://www.douban.com/j/like_tags",
+"http://bar.tmall.com/favoriteItem.htm"
 ];
