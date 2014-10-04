@@ -105,7 +105,7 @@ var defaultSiteConfigurations = [
     }, {
         "password": "",
             "siteUrl":
-            "https://tag4u.sinaapp.com/objsys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}",
+            "https://tag4u.sinaapp.com/obj_sys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}",
             "username": ""
     }
 ];

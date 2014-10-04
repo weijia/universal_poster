@@ -50,15 +50,19 @@ var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
 };
 
 //Sniffer callback will be used to determine if the item matches the criteria
-var snifferEngineList = [githubSniffer, stackoverflowSniffer, doubanSniffer];
+var snifferEngineList = [
+    //githubSniffer, 
+    //stackoverflowSniffer, 
+    doubanSniffer
+];
 
 
 var filterForPredefinedUrlPatterns = [
             //"<all_urls>"
             "*://cang.baidu.com/*",
             "*://www.instapaper.com/",
-            "*://github.com/*/star",
-            "*://stackoverflow.com/posts/*",
+            //"*://github.com/*/star",
+            //"*://stackoverflow.com/posts/*",
             "*://movie.douban.com/j/subject/*"
             ];
 
@@ -77,7 +81,7 @@ function getFilters(){
 
 
 function onConfigLoaded(){
-    var filters = getFilters();            
+    var filters_to_register = getFilters();            
     /*
     "*://my.yihaodian.com/member/myNewCollection/*",
                 "*://my.1mall.com/member/myNewCollection/*",
@@ -88,7 +92,7 @@ function onConfigLoaded(){
     chrome.webRequest.onBeforeRequest.addListener(
         function(info) {
             var submitPackage = {};
-            console.log("url intercepted: " + info.url, info);
+            console.log("url captured according to filters: " + info.url, info);
             var matchedEngine = false;
             for(var matchUrl in snifferEngineDict){
                 if(snifferEngineDict.hasOwnProperty(matchUrl))  // Ref: http://stackoverflow.com/questions/890807/iterate-over-a-javascript-associative-array-in-sorted-order
@@ -103,7 +107,8 @@ function onConfigLoaded(){
             var captureUrlList = getCaptureUrls();
             //console.log(captureUrlList);
             for(var index=0;index<captureUrlList.length;index++){
-                if(-1 != info.url.indexOf(captureUrlList[index])){
+                //if(-1 != info.url.indexOf(captureUrlList[index])){
+                if(stringStarPatternMatching(info.url, captureUrlList[index])){
                     matchedEngine = commonSniffer;
                     //console.log(captureUrlList[index], matchedEngine, info.url);
                 }
@@ -116,7 +121,7 @@ function onConfigLoaded(){
         },
         // filters
         {
-            urls: filters
+            urls: filters_to_register
         },
         ["requestBody"]
     );
