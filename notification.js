@@ -16,5 +16,5 @@ function showMsg(title, content){
 
 function createNotification(title, content){
     var n = new Notification(title + "\n" + content);
-    setTimeout(n.close, 3000);
+    setTimeout(function(){n.close();}, 3000);
 }
