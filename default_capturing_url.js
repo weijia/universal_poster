@@ -13,5 +13,6 @@ var defaultCaptureUrls = ["http://favorite.taobao.com/popup/add_collection.htm",
 "http://bar.tmall.com/favoriteItem.htm",
 "*://stackoverflow.com/posts/*/favorite",
 "*://github.com/*/star*",
-"http://wenzhang.baidu.com/fav/add"
+"http://wenzhang.baidu.com/fav/add",
+"https://bitbucket.org/*/*/follow"
 ];
