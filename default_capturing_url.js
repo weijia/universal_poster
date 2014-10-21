@@ -15,5 +15,6 @@ var defaultCaptureUrls = ["http://favorite.taobao.com/popup/add_collection.htm",
 "*://github.com/*/star*",
 "http://wenzhang.baidu.com/fav/add",
 "https://bitbucket.org/*/*/follow",
-"http://zhushou.huihui.cn/api/myzhushou/collection/add?"
+"http://zhushou.huihui.cn/api/myzhushou/collection/add?",
+"ttp://www.yintai.com/ajaxpage/myfavoriteajax.aspx?op=AddItemToFavorite&itemcode="
 ];
