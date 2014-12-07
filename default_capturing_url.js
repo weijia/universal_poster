@@ -17,5 +17,6 @@ var defaultCaptureUrls = ["http://favorite.taobao.com/popup/add_collection.htm",
 "https://bitbucket.org/*/*/follow",
 "http://zhushou.huihui.cn/api/myzhushou/collection/add?",
 "http://www.yintai.com/ajaxpage/myfavoriteajax.aspx?op=AddItemToFavorite&itemcode=",
-"http://my.yhd.com/member/myNewCollection/addNewFavorite.do?productId"
+"http://my.yhd.com/member/myNewCollection/addNewFavorite.do?productId",
+"https://djangosnippets.org/bookmarks/add/"
 ];
