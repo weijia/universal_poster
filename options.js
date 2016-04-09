@@ -28,10 +28,11 @@ loadConfig(function(){
     });
     if(!localStorage["showAllbookmarksSites"]){
         $(".siteUrl").each(function(){
-            if((-1 == $(this).val().indexOf("instapaper"))&&(-1 == $(this).val().indexOf("tag4u.sinaapp.com")))
+            if((-1 == $(this).val().indexOf("instapaper"))&&(-1 == $(this).val().indexOf("tag4u.sinaapp.com"))
+                        &&(-1 == $(this).val().indexOf("www.tingwojia.com")))
                 $(this).parent().parent().parent().hide();
         });
-        console.log("showAllbookmarksSites is not set");
+        console.log("showAllbookmarksSites is not set, you can set it by: localStorage['showAllbookmarksSites']=1");
     }
     $(".siteUrl").attr("disabled", true);
     $(".captureUrls button.add-item").parent().append('<button id="update-capture-urls">Update capture pattern from web</button>');
