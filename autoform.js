@@ -179,6 +179,7 @@
                     console.log("save clicked");
                     if(options["onsave"]) options["onsave"]();
                 });
+                $(this).append('<span id="save_status"></span>')
             });
         },
         getData: function () {

@@ -8,11 +8,11 @@ var descriptions = {
 };
 
 function showNotificationForSavingConfig(){
-    var status = $(".status", field)[0];
+    var status = $("#save_status")[0];
     status.innerHTML = chrome.i18n.getMessage("optionSaved");//"Options Saved.";
     setTimeout(function() {
         status.innerHTML = "";
-    }, 750);
+    }, 5000);
 }
 
 loadConfig(function(){
