@@ -105,11 +105,6 @@ var defaultSiteConfigurations = [
     }, {
         "password": "",
             "siteUrl":
-            "https://tag4u.sinaapp.com/obj_sys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}",
-            "username": ""
-    }, {
-        "password": "",
-            "siteUrl":
             "https://www.tingwojia.com:8888/obj_sys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}",
             "username": ""
     }
