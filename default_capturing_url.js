@@ -19,5 +19,6 @@ var defaultCaptureUrls = ["http://favorite.taobao.com/popup/add_collection.htm",
 "http://my.yhd.com/member/myNewCollection/addNewFavorite.do?productId",
 "https://djangosnippets.org/bookmarks/add/",
 "http://www.msmpy.com/wp-admin/admin-ajax.php",
-"http://askubuntu.com/posts/*/favorite"
+"http://askubuntu.com/posts/*/favorite",
+"*://www.diigo.com/*cmd=annotation_add",
 ];
