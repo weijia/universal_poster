@@ -28,10 +28,10 @@ function showNoConfigWarning() {
 
 function saveConfigToLocalStorage(configContentDict)//{"captureUrls":[], "siteConfigurations":{}}
 {
-	setCurVerConfigFromLocalStorage(configContentDict);
-	setCaptureUrls(configContentDict["captureUrls"]);
-	setSiteConfigurations(configContentDict["siteConfigurations"]);
-}			
+    setCurVerConfigFromLocalStorage(configContentDict);
+    setCaptureUrls(configContentDict["captureUrls"]);
+    setSiteConfigurations(configContentDict["siteConfigurations"]);
+}
 
 
 function startLoadConfig(callbacks) {
@@ -41,7 +41,7 @@ function startLoadConfig(callbacks) {
     chrome.storage.sync.get(["versionedConfig"], function (items) {
         var versionedConfig = items["versionedConfig"];
         if (versionedConfig) {
-			saveConfigToLocalStorage(versionedConfig["configDict"]["v1"]);
+            saveConfigToLocalStorage(versionedConfig["configDict"]["v1"]);
             console.log(JSON.stringify(versionedConfig));
             localStorage[chrome.app.getDetails().version] = JSON.stringify(versionedConfig);
             if(onSuccess) onSuccess();
@@ -88,7 +88,7 @@ function loadLegacyConfig(callbacks) {
                 versionedConfigInChromeSync = items["versionedConfig"];
                 //if(!versionedConfigInChromeSync){
                 saveConfig({
-                    "captureUrls": defaultCaptureUrls,
+                        "captureUrls": defaultCaptureUrls,
                         "siteConfigurations": siteConfigurations
                 }, onSuccess);
                 //}
@@ -102,13 +102,10 @@ var defaultSiteConfigurations = [
         "password": "",
             "siteUrl": "https://www.instapaper.com/api/add?username={username}&password={password}&url={url}&title={description}",
             "username": ""
-    }, {
-        "password": "",
-            "siteUrl":
-            "https://www.tingwojia.com:8888/obj_sys/append_tags/?username={username}&password={password}&selected_url={url}&description={description}&tags={tags}",
-            "username": ""
     }
 ];
+
+var defaultCaptureUrls = [];
     
     
 //TODO: Rewrite the codes use jquery defer
@@ -122,12 +119,12 @@ function loadConfig(successCallback, failCallback) {
             loadLegacyConfig({
                 "success": successCallback,
                 "fail": function () {
-					var defaultConfigContent = {
-                        "captureUrls": defaultCaptureUrls,
+                        var defaultConfigContent = {
+                            "captureUrls": defaultCaptureUrls,
                             "siteConfigurations": defaultSiteConfigurations
                         };
                     saveConfig(defaultConfigContent, successCallback);
-					saveConfigToLocalStorage(defaultConfigContent);
+                    saveConfigToLocalStorage(defaultConfigContent);
                 }
             });
         }
