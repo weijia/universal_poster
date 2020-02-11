@@ -1,8 +1,8 @@
 {
   "name": "__MSG_extName__",
-  "version": "3.2.29",
+  "version": "3.2.40",
   "manifest_version": 2,
-  "description": "Post every stared thing to instapaper and SAE backend",
+  "description": "Post every stared thing to instapaper or other tool that is supported",
   "permissions": [
     "*://*/",
     "webRequest",
