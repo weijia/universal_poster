@@ -10,9 +10,6 @@ function notifyPost(postInfo){
     );
 }
 
-$.couch.urlPrefix = couchdbUrl;
-$.couch.login({"name": couchdbUser, "password": couchdbPassword});
-
 var startPostInfoProcess = function(postInfo) {
     console.log(postInfo);
     var siteConfigurations = getSiteConfigurations();
@@ -39,6 +36,9 @@ var startPostInfoProcess = function(postInfo) {
             //console.log("post result:", data);
         });
     }
+    
+    $.couch.urlPrefix = couchdbUrl;
+    $.couch.login({"name": couchdbUser, "password": couchdbPassword});
     $.couch.db(couchDbName).saveDoc({
         "type": "favorites",
         "url": postInfo.postingUrl,
