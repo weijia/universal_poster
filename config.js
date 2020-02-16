@@ -100,8 +100,8 @@ function loadLegacyConfig(callbacks) {
 var defaultSiteConfigurations = [
     {
         "password": "",
-            "siteUrl": "https://www.instapaper.com/api/add?username={username}&password={password}&url={url}&title={description}",
-            "username": ""
+        "siteUrl": "https://www.instapaper.com/api/add?username={username}&password={password}&url={url}&title={description}",
+        "username": ""
     }
 ];
 

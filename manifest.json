@@ -26,7 +26,7 @@
         "yihaodian_sniffer.js", "notification.js", "douban_sniffer.js",
         "common_sniffer.js", "config.js", "web_dynamic_config_loader.js", "local_storage_config.js",
         "string_star_pattern_matching.js",
-        "background.js"
+        "background.js", "jquery-1.9.1.min.js", "jquery.couch.js"
         ]
   },
   "default_locale": "zh_CN"
