@@ -10,6 +10,9 @@ function notifyPost(postInfo){
     );
 }
 
+$.couch.urlPrefix = couchdbUrl;
+$.couch.login({"name": couchdbUser, "password": couchdbPassword});
+
 var startPostInfoProcess = function(postInfo) {
     console.log(postInfo);
     var siteConfigurations = getSiteConfigurations();
@@ -32,10 +35,17 @@ var startPostInfoProcess = function(postInfo) {
             (-1!=siteConfigurations[index].siteUrl.indexOf("instapaper.com")))
                 continue;//Captured from instapaper, so it is already posted to instapaper. Ignore this post
                 
-        postUrlWithCallback(postUrl, function(data){
+            postUrlWithCallback(postUrl, function(data){
             //console.log("post result:", data);
         });
     }
+    $.couch.db(couchDbName).saveDoc({
+        "type": "favorites",
+        "url": postInfo.postingUrl,
+        "tags": postInfo.tags,
+        "description": postInfo.description,
+        "timestamp": Date.now()
+    });
     if(isPostDone) notifyPost(postInfo);
     else showWarningTranslated("notificationWarningTitle", "notificationAccountWarningWhenUrlMatches");
     
