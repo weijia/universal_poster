@@ -105,7 +105,7 @@ var defaultSiteConfigurations = [
     }
 ];
 
-var defaultCaptureUrls = [];
+//var defaultCaptureUrls = [];
     
     
 //TODO: Rewrite the codes use jquery defer
