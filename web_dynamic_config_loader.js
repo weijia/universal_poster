@@ -34,3 +34,31 @@ function loadWebDynamicConfig(onSuccess) {
                 });
     })
 };
+
+function resetToDefaultCapturePatterns(onSuccess){
+        var isUpdated = false;
+        var capturingUrls = getCaptureUrls();
+        for(var index=0;index<defaultCaptureUrls.length;index++){
+            var item = defaultCaptureUrls[index]
+            //console.log(item);
+            //capturingUrls.push(item);
+            if(-1 == capturingUrls.indexOf(item)){
+                capturingUrls.push(item);
+                isUpdated = true;
+                console.log("Adding", item, capturingUrls);
+            }
+        }
+        //Save to localStorage
+        setCaptureUrls(capturingUrls);
+        //Save to sync stroage
+        saveConfig({
+                    "captureUrls": capturingUrls,
+                        "siteConfigurations": getSiteConfigurations()
+                    }, function(){
+                        location.reload();
+                        var bkg = chrome.extension.getBackgroundPage();
+                        bkg.location.reload();
+                        if(onSuccess) onSuccess();
+
+                });
+}

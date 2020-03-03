@@ -36,5 +36,7 @@ loadConfig(function(){
     }
     $(".siteUrl").attr("disabled", true);
     $(".captureUrls button.add-item").parent().append('<button id="update-capture-urls">Update capture pattern from web</button>');
+    $(".captureUrls button.add-item").parent().append('<button id="reset-to-default-capture-urls">Reset to default capture pattern</button>');
     $("#update-capture-urls").button().click(function(){loadWebDynamicConfig();});
+    $("#reset-to-default-capture-urls").button().click(function(){resetToDefaultCapturePatterns();});
 });
