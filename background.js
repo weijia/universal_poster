@@ -38,14 +38,15 @@ var startPostInfoProcess = function(postInfo) {
     }
     
     $.couch.urlPrefix = couchdbUrl;
-    $.couch.login({"name": couchdbUser, "password": couchdbPassword});
-    $.couch.db(couchDbName).saveDoc({
-        "type": "favorites",
-        "url": postInfo.postingUrl,
-        "tags": postInfo.tags,
-        "description": postInfo.description,
-        "timestamp": Date.now()
-    });
+    $.couch.login({"name": couchdbUser, "password": couchdbPassword, success: function(){
+        $.couch.db(couchDbName).saveDoc({
+            "type": "favorites",
+            "url": postInfo.postingUrl,
+            "tags": postInfo.tags,
+            "description": postInfo.description,
+            "timestamp": Date.now()
+        });
+    }});
     if(isPostDone) notifyPost(postInfo);
     else showWarningTranslated("notificationWarningTitle", "notificationAccountWarningWhenUrlMatches");
     
