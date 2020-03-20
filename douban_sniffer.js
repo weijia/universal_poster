@@ -13,7 +13,7 @@ var doubanSniffer = {
     onRequest: function(info, callback) {
         var starUrl = info.url;
         chrome.tabs.get(info.tabId, function(tab){
-            var postingItem = {tags: "collect",
+            var postingItem = {tags: ["collect"],
                 postingUrl: info.url.substring(0, info.url.length - doubanSnifferUrlPattern.length).replace("/j/subject", '/subject'),
                 description: tab.title,
                 capturer: this};

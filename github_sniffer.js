@@ -4,7 +4,7 @@ var githubSniffer = {
     onRequest: function(info) {
         var starUrl = info.url;
         starUrl
-        return {tags: "star", 
+        return {tags: ["star"], 
                 postingUrl: info.url.substring(0, info.url.length - "/star".length),
                 description: info.url.substring(0, info.url.length - "/star".length),
                 capturer: this}

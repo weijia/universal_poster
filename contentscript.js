@@ -33,7 +33,7 @@ function handleInitForNetEaseScript(event){
         }            
         if(saved){
             //console.log("Hello world");
-            var msg = {tags: "feedly", postingUrl: url, description: text, capturer: {name: "feedly"}};
+            var msg = {tags: ["feedly"], postingUrl: url, description: text, capturer: {name: "feedly"}};
             chrome.runtime.sendMessage(msg, function(response) {});
             console.log("send msg done", msg);
         }
@@ -49,7 +49,7 @@ function handleInitForNetEaseScript(event){
             
 
             //console.log("Hello world");
-            var msg = {tags: "buy", postingUrl: item.attr("href"), description: item.text(), capturer: {name: "netease_reader"}};
+            var msg = {tags: ["buy"], postingUrl: item.attr("href"), description: item.text(), capturer: {name: "netease_reader"}};
             chrome.runtime.sendMessage(msg, function(response) {});
             console.log("send msg done", msg);
         }
