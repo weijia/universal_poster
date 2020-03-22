@@ -21,4 +21,6 @@ var defaultCaptureUrls = ["http://favorite.taobao.com/popup/add_collection.htm",
 "http://www.msmpy.com/wp-admin/admin-ajax.php",
 "http://askubuntu.com/posts/*/favorite",
 "*://www.diigo.com/*cmd=annotation_add",
+"*://stackoverflow.com/posts/*/vote",
+"https://askubuntu.com/posts/*/vote/",
 ];
