@@ -3,7 +3,7 @@ var diigoSniffer = {
     name: "diigo.com",
     onRequest: function(info) {
 
-        return {tags: info.requestBody.formData.tags.split(" "), 
+        return {tags: info.requestBody.formData.tags, 
                 postingUrl: info.requestBody.formData.url[0],
                 description: info.requestBody.formData.title + info.requestBody.formData.description,
                 capturer: this}
