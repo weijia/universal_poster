@@ -64,7 +64,8 @@ var snifferEngineDict = {"http://cang.baidu.com/do/cm": cangSniffer,
 var snifferEngineList = [
     //githubSniffer, 
     //stackoverflowSniffer, 
-    doubanSniffer
+    doubanSniffer,
+    diigoSniffer
 ];
 
 
