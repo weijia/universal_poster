@@ -10,3 +10,8 @@ What information do you collect?
 The extention do not store any personal data. The URLs which are monitored is the favarites on different sits.
 How do you use the information?
 The extention will only post user's favarites in different site to Instapaper or other site user expect to post as per user's request (set in the config page)
+
+Add the following to post pattern and \*://post-to-my-fav/\*
+
+Then add the following to bookmarklet
+javascript:var s = document.createElement("script");s.type = "text/javascript";s.src = "https://post-to-my-fav/";$("head").append(s);
